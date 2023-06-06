@@ -117,9 +117,71 @@ Using this endpoint, you can get the current prices for our cloud servers.
 
 ## Order a new server
 
+```php
+<?php
+$req = [
+  "cores" => 4,
+  "ram" => 8,
+  "storage" => 50,
+  "os" => "Debian 11",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&os=Debian%2011"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 123,
+  "price": 12.38
+}
+```
+
+Using this endpoint, you can order a new server.
+
 <aside class="notice">
-Server orders are currently only possible via web. We will enable server orders by API soon.
+You can fetch server details using <code>ID</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
+
+### API endpoint
+
+`/cloud/order`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+cores | - | **Required** CPU cores (1-16)
+ram | - | **Required** RAM in GB (1-64)
+storage | - | **Required** NVMe storage in GB (10-500)
+os | - | **Required** Operating system (Debian 11, Debian 10, Ubuntu 22.04, Ubuntu 21.04, Ubuntu 20.04, Windows Server 2022)
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | Internal error
+804 | Invalid configuration (see message)
+805 | Not enough credit/limit
 
 ## Get server details
 
