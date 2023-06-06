@@ -218,7 +218,7 @@ $req = [
   "id" => 123,
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/start");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/start");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -234,7 +234,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/start?id=123"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/start?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -276,7 +276,7 @@ $req = [
   "id" => 123,
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reboot");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reboot");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -292,7 +292,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reboot?id=123"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reboot?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -334,7 +334,7 @@ $req = [
   "id" => 123,
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -350,7 +350,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown?id=123"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -393,7 +393,7 @@ $req = [
   "os" => "Debian 11",
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -409,7 +409,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall?id=123&os=Debian%2011"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall?id=123&os=Debian%2011"
 ```
 
 > The above command returns JSON structured like this:
@@ -457,7 +457,7 @@ $req = [
   "id" => 123,
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/password");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/password");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -473,7 +473,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/password?id=123"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/password?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -524,7 +524,7 @@ $req = [
   "key" => "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT/9oDuFrQg9Kb0PIKhy/u6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7+DPOdCLhotUcy2SQ3yVI/wNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel/zLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6/eXKR3qbTW426ak41Kk5/zn6YletlQJopoQP2NYeG+TWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21/hH example",
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/key");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -540,7 +540,7 @@ print_r($res);
 ```
 
 ```shell
-curl -d "ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example" "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"
+curl -d "ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example" "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -596,7 +596,7 @@ $req = [
   "id" => 123,
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/vnc");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/vnc");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -612,7 +612,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/vnc?id=123"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/vnc?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -660,7 +660,7 @@ $req = [
   "to" => strtotime("now"),
 ];
 
-$ch = curl_init("https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/traffic");
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/traffic");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
 $res = curl_exec($ch);
@@ -676,7 +676,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/traffic?id=123&from=168600000&to=1686004852"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/traffic?id=123&from=168600000&to=1686004852"
 ```
 
 > The above command returns JSON structured like this:
