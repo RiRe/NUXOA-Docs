@@ -909,9 +909,11 @@ This are the additional return codes for this action. The global return codes ap
 
 Return Code | Meaning
 ---------- | -------
-803 | Internal error
-804 | Invalid configuration (see message)
-805 | Not enough credit/limit
+803 | No contract ID specified
+804 | Specified contract is unknown
+805 | Internal error
+806 | Invalid configuration (see message)
+807 | Not enough credit/limit
 
 ## Cancel a server
 
