@@ -601,7 +601,7 @@ Server orders are currently only possible via web. We will enable server orders 
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/start"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/start"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -614,7 +614,7 @@ Server orders are currently only possible via web. We will enable server orders 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/start?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/start?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -665,7 +665,7 @@ Server orders are currently only possible via web. We will enable server orders 
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reboot"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reboot"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -678,7 +678,7 @@ Server orders are currently only possible via web. We will enable server orders 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reboot?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reboot?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -729,7 +729,7 @@ Server orders are currently only possible via web. We will enable server orders 
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -742,7 +742,7 @@ Server orders are currently only possible via web. We will enable server orders 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/shutdown?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -794,7 +794,7 @@ Server orders are currently only possible via web. We will enable server orders 
   <span class="s2">"os"</span> <span class="o">=&gt;</span> <span class="s2">"Debian 11"</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -807,7 +807,7 @@ Server orders are currently only possible via web. We will enable server orders 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall?id=123&amp;os=Debian%2011"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/reinstall?id=123&amp;os=Debian%2011"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -871,7 +871,7 @@ During reinstallation, the server credentials will change. You should obtain the
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/password"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/password"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -884,7 +884,7 @@ During reinstallation, the server credentials will change. You should obtain the
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/password?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/password?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -944,7 +944,7 @@ Depending on the operating system, you may have to reboot the server before pass
   <span class="s2">"key"</span> <span class="o">=&gt;</span> <span class="s2">"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT/9oDuFrQg9Kb0PIKhy/u6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7+DPOdCLhotUcy2SQ3yVI/wNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel/zLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6/eXKR3qbTW426ak41Kk5/zn6YletlQJopoQP2NYeG+TWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21/hH example"</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/key"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -957,7 +957,7 @@ Depending on the operating system, you may have to reboot the server before pass
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-d</span> <span class="s2">"ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example"</span> <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-d</span> <span class="s2">"ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example"</span> <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1029,7 +1029,7 @@ Depending on the operating system, you may have to reboot the server before the 
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/vnc"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/vnc"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -1042,7 +1042,7 @@ Depending on the operating system, you may have to reboot the server before the 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/vnc?id=123"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/vnc?id=123"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1099,7 +1099,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
   <span class="s2">"to"</span> <span class="o">=&gt;</span> <span class="nb">strtotime</span><span class="p">(</span><span class="s2">"now"</span><span class="p">),</span>
 <span class="p">];</span>
 
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/traffic"</span><span class="p">);</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/traffic"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -1112,7 +1112,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://sourceway.de/api/CUSTOMER_ID/API_KEY/cloud/traffic?id=123&amp;from=168600000&amp;to=1686004852"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/traffic?id=123&amp;from=168600000&amp;to=1686004852"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
