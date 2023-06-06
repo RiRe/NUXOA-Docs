@@ -154,7 +154,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8
 }
 ```
 
-Using this endpoint, you can order a new server.
+Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.
 
 <aside class="notice">
 You can fetch server details using <code>ID</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -246,7 +246,12 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
       "Ubuntu 20.04",
       "Ubuntu 22.04",
       "Windows Server 2022"
-    ]
+    ],
+    "resources": {
+      "cores": 3,
+      "ram": 12,
+      "storage": 25
+    }
   }
 }
 ```
@@ -837,9 +842,76 @@ Return Code | Meaning
 
 ## Upgrade a server
 
+```php
+<?php
+$req = [
+  "id" => 123,
+  "cores" => 4,
+  "ram" => 16,
+  "storage" => 50,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&cores=4&ram=16&storage=50"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true,
+  "billed": 5.23,
+  "new_price": 17.61
+}
+```
+
+Using this endpoint, you can order upgrade an existing server. Your account will be billed with the breakdown amount for the price difference. The recurring amount will change to the price for the new configuration.
+
 <aside class="notice">
-Upgrading a server is currently only possible via web. We will enable server upgrades by API soon.
+It is not possible to downgrade a server. Therefore, reverting an upgrade is not possible.
 </aside>
+
+<aside class="notice">
+Depending on the operating system, upgrades may apply not immediately. In this case, a reboot is required. There are no automatic reboots.
+</aside>
+
+### API endpoint
+
+`/cloud/upgrade`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** Cloud server ID
+cores | - | **Required** CPU cores after upgrade (1-16)
+ram | - | **Required** RAM in GB after upgrade (1-64)
+storage | - | **Required** NVMe storage in GB after upgrade (10-500)
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | Internal error
+804 | Invalid configuration (see message)
+805 | Not enough credit/limit
 
 ## Cancel a server
 
