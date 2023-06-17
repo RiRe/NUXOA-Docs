@@ -234,7 +234,9 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
     ],
     "online": true,
     "ipv4": "1.2.3.4",
+    "ipv4_ptr": "test.nuxoa.de",
     "ipv6": null,
+    "ipv6_ptr": null,
     "os": "Debian 11",
     "username": "root",
     "password": "***",
@@ -607,7 +609,7 @@ print_r($res);
 ```
 
 ```shell
-curl -d "ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example" "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"
+curl -d "key=ssh-rsa%20AAAAB3NzaC1yc2EAAAADAQABAAABAQCBmgbPAwpa5LUT%2F9oDuFrQg9Kb0PIKhy%2Fu6nfa6Vw0aCMp6S9wCU061lng9qfNVcthX1Aek8QyOwMq93tzP20lzI7%2BDPOdCLhotUcy2SQ3yVI%2FwNMQR91VoY7aFkhRqQEOXo2RME4Au6x3AiONjAuNJEQxmtnJfdkYel%2FzLUKtmIAZNhU1WNoZN5RJqx9onahMDeiESWTHRnmKha3mK8lFaP6%2FeXKR3qbTW426ak41Kk5%2Fzn6YletlQJopoQP2NYeG%2BTWV60X9Sq0OAIY9MZqWt02zJA7Q5Na71sKREZWVczcWQcnejv70zKY9XxVNy74WmWIkVyt6qzTgz3J21%2FhH%20example" "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123"
 ```
 
 > The above command returns JSON structured like this:
@@ -642,6 +644,73 @@ Parameter | Default | Description
 --------- | ------- | -----------
 id | - | **Required** The ID of the contract
 key | - | **Required** SSH key in OpenSSH format
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
+## Set reverse DNS (PTR)
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "proto" => "ipv4",
+  "ptr" => "test.nuxoa.de",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123&proto=ipv4&ptr=test.nuxoa.de"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can set the reverse DNS (PTR record) for an IP address.
+
+<aside class="notice">
+The PTR host must resolve to the IP address.
+</aside>
+
+### API endpoint
+
+`/cloud/ptr`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+proto | - | **Required** IP address family (ipv4, ipv6)
+ptr | - | **Required** PTR record content
 
 ### Return codes
 
