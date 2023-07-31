@@ -339,6 +339,9 @@
                     <a href="#authorize-ssh-key" class="toc-h2 toc-link" data-title="Authorize SSH key">Authorize SSH key</a>
                   </li>
                   <li>
+                    <a href="#set-hostname" class="toc-h2 toc-link" data-title="Set hostname">Set hostname</a>
+                  </li>
+                  <li>
                     <a href="#set-reverse-dns-ptr" class="toc-h2 toc-link" data-title="Set reverse DNS (PTR)">Set reverse DNS (PTR)</a>
                   </li>
                   <li>
@@ -405,7 +408,7 @@
               </ul>
           </li>
           <li>
-            <a href="#return-codes-27" class="toc-h1 toc-link" data-title="Return codes">Return codes</a>
+            <a href="#return-codes-28" class="toc-h1 toc-link" data-title="Return codes">Return codes</a>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -632,10 +635,15 @@ You can fetch server details using <code>ID</code> and the <code>info</code>. Th
       </span><span class="s2">"2023-11-01"</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"online"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hostname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"server.nuxoa.de"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"ipv4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.4"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"ipv4_ptr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test.nuxoa.de"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"ipv6"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"ipv6_ptr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ip_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.4/32"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gw"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
     </span><span class="nl">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debian 11"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"***"</span><span class="p">,</span><span class="w">
@@ -1119,6 +1127,80 @@ Depending on the operating system, you may have to reboot the server before the 
 </tbody></table>
 
 <p>The <code>message</code> element can contain more details.</p>
+<h2 id='set-hostname'>Set hostname</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="s2">"hostname"</span> <span class="o">=&gt;</span> <span class="s2">"server.nuxoa.de"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/hostname"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/hostname?id=123&amp;os=server.nuxoa.de"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, you can set the hostname of a cloud server.</p>
+<h3 id='api-endpoint-10'>API endpoint</h3>
+<p><code>/cloud/hostname</code></p>
+<h3 id='query-parameters-9'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> The ID of the contract</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>-</td>
+<td><strong>Required</strong> FQDN</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-9'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>803</td>
+<td>No contract ID specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Specified contract is unknown</td>
+</tr>
+<tr>
+<td>807</td>
+<td>Required task parameter is missing</td>
+</tr>
+</tbody></table>
+
+<p>The <code>message</code> element can contain more details.</p>
 <h2 id='set-reverse-dns-ptr'>Set reverse DNS (PTR)</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
@@ -1153,9 +1235,9 @@ Depending on the operating system, you may have to reboot the server before the 
 <aside class="notice">
 The PTR host must resolve to the IP address.
 </aside>
-<h3 id='api-endpoint-10'>API endpoint</h3>
+<h3 id='api-endpoint-11'>API endpoint</h3>
 <p><code>/cloud/ptr</code></p>
-<h3 id='query-parameters-9'>Query Parameters</h3>
+<h3 id='query-parameters-10'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1179,7 +1261,7 @@ The PTR host must resolve to the IP address.
 <td><strong>Required</strong> PTR record content</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-9'>Return codes</h3>
+<h3 id='return-codes-10'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -1235,9 +1317,9 @@ The PTR host must resolve to the IP address.
 <aside class="notice">
 The VNC link is valid once and must be used within 5 seconds. After that period, the link expires for security reasons.
 </aside>
-<h3 id='api-endpoint-11'>API endpoint</h3>
+<h3 id='api-endpoint-12'>API endpoint</h3>
 <p><code>/cloud/vnc</code></p>
-<h3 id='query-parameters-10'>Query Parameters</h3>
+<h3 id='query-parameters-11'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1251,7 +1333,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 <td><strong>Required</strong> The ID of the contract</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-10'>Return codes</h3>
+<h3 id='return-codes-11'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -1301,9 +1383,9 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can retrieve a traffic graph for a cloud server. You must specify a time range and get a permanent valid link to the according traffic graph as image.</p>
-<h3 id='api-endpoint-12'>API endpoint</h3>
+<h3 id='api-endpoint-13'>API endpoint</h3>
 <p><code>/cloud/traffic</code></p>
-<h3 id='query-parameters-11'>Query Parameters</h3>
+<h3 id='query-parameters-12'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1327,7 +1409,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 <td><strong>Required</strong> End date as UNIX timestamp</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-11'>Return codes</h3>
+<h3 id='return-codes-12'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -1382,9 +1464,9 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can update a note for a existing contract.</p>
-<h3 id='api-endpoint-13'>API endpoint</h3>
+<h3 id='api-endpoint-14'>API endpoint</h3>
 <p><code>/hosting/set</code></p>
-<h3 id='query-parameters-12'>Query Parameters</h3>
+<h3 id='query-parameters-13'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1403,7 +1485,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 <td>The note to set for the contract</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-12'>Return codes</h3>
+<h3 id='return-codes-13'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -1462,9 +1544,9 @@ It is not possible to downgrade a server. Therefore, reverting an upgrade is not
 <aside class="notice">
 Depending on the operating system, upgrades may apply not immediately. In this case, a reboot is required. There are no automatic reboots.
 </aside>
-<h3 id='api-endpoint-14'>API endpoint</h3>
+<h3 id='api-endpoint-15'>API endpoint</h3>
 <p><code>/cloud/upgrade</code></p>
-<h3 id='query-parameters-13'>Query Parameters</h3>
+<h3 id='query-parameters-14'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1493,7 +1575,7 @@ Depending on the operating system, upgrades may apply not immediately. In this c
 <td><strong>Required</strong> NVMe storage in GB after upgrade (10-500)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-13'>Return codes</h3>
+<h3 id='return-codes-14'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -1560,9 +1642,9 @@ Depending on the operating system, upgrades may apply not immediately. In this c
 <aside class="notice">
 In order to revoke an existing contract cancellation, please submit the date <code>0000-00-00</code>.
 </aside>
-<h3 id='api-endpoint-15'>API endpoint</h3>
+<h3 id='api-endpoint-16'>API endpoint</h3>
 <p><code>/hosting/cancel</code></p>
-<h3 id='query-parameters-14'>Query Parameters</h3>
+<h3 id='query-parameters-15'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1581,7 +1663,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Date of cancellation</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-14'>Return codes</h3>
+<h3 id='return-codes-15'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -1702,9 +1784,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint is used to get listed all your domains.</p>
-<h3 id='api-endpoint-16'>API endpoint</h3>
+<h3 id='api-endpoint-17'>API endpoint</h3>
 <p><code>/domain/list</code></p>
-<h3 id='query-parameters-15'>Query Parameters</h3>
+<h3 id='query-parameters-16'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1718,7 +1800,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Filter by domain name (wildcard)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-15'>Return codes</h3>
+<h3 id='return-codes-16'>Return codes</h3>
 <p>The global return codes applies.</p>
 <h2 id='register-a-domain'>Register a domain</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
@@ -1794,9 +1876,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can register a domain. Please make sure that the domain is available first.</p>
-<h3 id='api-endpoint-17'>API endpoint</h3>
+<h3 id='api-endpoint-18'>API endpoint</h3>
 <p><code>/domain/register</code></p>
-<h3 id='query-parameters-16'>Query Parameters</h3>
+<h3 id='query-parameters-17'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1845,7 +1927,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute registration in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-16'>Return codes</h3>
+<h3 id='return-codes-17'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -1974,9 +2056,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can transfer a domain. The request is identical to the <code>register</code> request, except requiring the parameter <code>password</code>.</p>
-<h3 id='api-endpoint-18'>API endpoint</h3>
+<h3 id='api-endpoint-19'>API endpoint</h3>
 <p><code>/domain/transfer</code></p>
-<h3 id='query-parameters-17'>Query Parameters</h3>
+<h3 id='query-parameters-18'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2030,7 +2112,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute transfer in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-17'>Return codes</h3>
+<h3 id='return-codes-18'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2165,9 +2247,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can modify an existing domain.</p>
-<h3 id='api-endpoint-19'>API endpoint</h3>
+<h3 id='api-endpoint-20'>API endpoint</h3>
 <p><code>/domain/modify</code></p>
-<h3 id='query-parameters-18'>Query Parameters</h3>
+<h3 id='query-parameters-19'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2231,7 +2313,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute modification in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-18'>Return codes</h3>
+<h3 id='return-codes-19'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2340,9 +2422,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can execute a domain owner change (trade). This is a chargeable action required if you want to change the domain owner data for a TLD with chargeable domain owner change. You are not able to change the domain owner via the <code>domain/modify</code> endpoint in this case.</p>
-<h3 id='api-endpoint-20'>API endpoint</h3>
+<h3 id='api-endpoint-21'>API endpoint</h3>
 <p><code>/domain/trade</code></p>
-<h3 id='query-parameters-19'>Query Parameters</h3>
+<h3 id='query-parameters-20'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2381,7 +2463,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute trade in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-19'>Return codes</h3>
+<h3 id='return-codes-20'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2447,9 +2529,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can request the authcode for your domain.</p>
-<h3 id='api-endpoint-21'>API endpoint</h3>
+<h3 id='api-endpoint-22'>API endpoint</h3>
 <p><code>/domain/password</code></p>
-<h3 id='query-parameters-20'>Query Parameters</h3>
+<h3 id='query-parameters-21'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2463,7 +2545,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The domain to request the authcode for</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-20'>Return codes</h3>
+<h3 id='return-codes-21'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2512,9 +2594,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can delete a domain or return it to registry.</p>
-<h3 id='api-endpoint-22'>API endpoint</h3>
+<h3 id='api-endpoint-23'>API endpoint</h3>
 <p><code>/domain/delete</code></p>
-<h3 id='query-parameters-21'>Query Parameters</h3>
+<h3 id='query-parameters-22'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2533,7 +2615,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The type of deletion (0 = normal delete, 1 = connected return, 2 = disconnected return)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-21'>Return codes</h3>
+<h3 id='return-codes-22'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2592,9 +2674,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get all DNS zones existing for domains using the nameservers of the provider.</p>
-<h3 id='api-endpoint-23'>API endpoint</h3>
+<h3 id='api-endpoint-24'>API endpoint</h3>
 <p><code>/dns/list</code></p>
-<h3 id='query-parameters-22'>Query Parameters</h3>
+<h3 id='query-parameters-23'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2608,7 +2690,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Filter by domain (wildcard)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-22'>Return codes</h3>
+<h3 id='return-codes-23'>Return codes</h3>
 <p>The global return codes applies.</p>
 <h2 id='get-zone-records'>Get zone records</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
@@ -2655,9 +2737,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get all records existing in the specified DNS zone.</p>
-<h3 id='api-endpoint-24'>API endpoint</h3>
+<h3 id='api-endpoint-25'>API endpoint</h3>
 <p><code>/dns/show</code></p>
-<h3 id='query-parameters-23'>Query Parameters</h3>
+<h3 id='query-parameters-24'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2671,7 +2753,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The domain/zone name you want to get</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-23'>Return codes</h3>
+<h3 id='return-codes-24'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2724,9 +2806,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can create a new record in a DNS zone.</p>
-<h3 id='api-endpoint-25'>API endpoint</h3>
+<h3 id='api-endpoint-26'>API endpoint</h3>
 <p><code>/dns/add</code></p>
-<h3 id='query-parameters-24'>Query Parameters</h3>
+<h3 id='query-parameters-25'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2765,7 +2847,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Priority (can be 0)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-24'>Return codes</h3>
+<h3 id='return-codes-25'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2823,9 +2905,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can edit an existing record in a DNS zone.</p>
-<h3 id='api-endpoint-26'>API endpoint</h3>
+<h3 id='api-endpoint-27'>API endpoint</h3>
 <p><code>/dns/edit</code></p>
-<h3 id='query-parameters-25'>Query Parameters</h3>
+<h3 id='query-parameters-26'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2869,7 +2951,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Priority (can be 0)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-25'>Return codes</h3>
+<h3 id='return-codes-26'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2930,9 +3012,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can delete an existing record from a DNS zone.</p>
-<h3 id='api-endpoint-27'>API endpoint</h3>
+<h3 id='api-endpoint-28'>API endpoint</h3>
 <p><code>/dns/delete</code></p>
-<h3 id='query-parameters-26'>Query Parameters</h3>
+<h3 id='query-parameters-27'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2951,7 +3033,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The ID of the record to be deleted (find in <code>dns/show</code> as key)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-26'>Return codes</h3>
+<h3 id='return-codes-27'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2977,7 +3059,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Record not found</td>
 </tr>
 </tbody></table>
-<h1 id='return-codes-27'>Return codes</h1>
+<h1 id='return-codes-28'>Return codes</h1>
 <p>The NUXOA API uses the following return codes, they are contained in the <code>code</code> element in the JSON response:</p>
 
 <table><thead>
