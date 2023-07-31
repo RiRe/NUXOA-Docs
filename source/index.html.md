@@ -233,10 +233,15 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
       "2023-11-01"
     ],
     "online": true,
+    "hostname": "server.nuxoa.de",
     "ipv4": "1.2.3.4",
     "ipv4_ptr": "test.nuxoa.de",
     "ipv6": null,
     "ipv6_ptr": null,
+    "ip_config": {
+      "ip": "1.2.3.4/32",
+      "gw": "1.2.3.1"
+    },
     "os": "Debian 11",
     "username": "root",
     "password": "***",
@@ -644,6 +649,67 @@ Parameter | Default | Description
 --------- | ------- | -----------
 id | - | **Required** The ID of the contract
 key | - | **Required** SSH key in OpenSSH format
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
+## Set hostname
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "hostname" => "server.nuxoa.de",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/hostname");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/hostname?id=123&os=server.nuxoa.de"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can set the hostname of a cloud server.
+
+### API endpoint
+
+`/cloud/hostname`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+hostname | - | **Required** FQDN
 
 ### Return codes
 
