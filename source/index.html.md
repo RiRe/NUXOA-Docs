@@ -852,6 +852,71 @@ Return Code | Meaning
 
 The `message` element can contain more details.
 
+## Server graphs
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "period" => "day",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/graphs");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/graphs?id=123&period=day"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "cpu": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAIAAA...",
+  "memory": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAIAAA...",
+  "storage": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAIAAA...",
+  "network": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAIAAA...",
+  "io": "iVBORw0KGgoAAAANSUhEUgAAAyAAAADICAIAAA..."
+}
+```
+
+Using this endpoint, you can retrieve a usage graphs for different metrics of a cloud server. You must specify a time period. The graphs are returned as base64-encoded PNG images.
+
+### API endpoint
+
+`/cloud/graphs`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+period | day | hour, day, week, month, year
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
 ## Traffic graphs
 
 ```php
