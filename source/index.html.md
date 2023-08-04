@@ -915,6 +915,69 @@ Return Code | Meaning
 
 The `message` element can contain more details.
 
+## DDoS attacks
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ddos");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ddos?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "ip": "1.2.3.4",
+    "signatures": "UDP-bandwidth",
+    "astart": "2023-08-04T01:47:56+0000",
+    "aend": ""
+  },
+  {
+    "ip": "1.2.3.4",
+    "signatures": "UDP-bandwidth",
+    "astart": "2023-08-04T00:38:56+0000",
+    "aend": "2023-08-04T01:26:01+0000"
+  }
+]
+```
+
+Using this endpoint, you can retrieve current and past DDoS attacks for a cloud server. We only return attacks of the last 24 hours (within their end).
+
+### API endpoint
+
+`/cloud/ddos`
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+
+The `message` element can contain more details.
+
 ## Set note/description
 
 ```php
