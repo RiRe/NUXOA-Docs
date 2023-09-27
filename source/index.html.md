@@ -171,7 +171,7 @@ Parameter | Default | Description
 cores | - | **Required** CPU cores (1-16)
 ram | - | **Required** RAM in GB (1-64)
 storage | - | **Required** NVMe storage in GB (10-500)
-os | - | **Required** Operating system (Debian 11, Debian 10, Ubuntu 22.04, Ubuntu 21.04, Ubuntu 20.04, Windows Server 2022)
+os | - | **Required** Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)
 
 ### Return codes
 
@@ -247,12 +247,12 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
     "password": "***",
     "ssh_key": "",
     "available_os": [
+      "Debian 12",
       "Debian 11",
-      "Debian 10",
-      "Ubuntu 21.04",
-      "Ubuntu 20.04",
+      "Ubuntu 22.10",
       "Ubuntu 22.04",
-      "Windows Server 2022"
+      "Windows Server 2022",
+      "Windows Server 2019"
     ],
     "resources": {
       "cores": 3,
