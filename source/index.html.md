@@ -104,6 +104,10 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/pricing"
     "storage": {
       "net": 0.04,
       "gross": 0.0476
+    },
+    "snapshots": {
+      "net": 0.5,
+      "gross": 0.595
     }
   }
 }
@@ -123,6 +127,7 @@ $req = [
   "cores" => 4,
   "ram" => 8,
   "storage" => 50,
+  "snapshots" => 0,
   "os" => "Debian 11",
 ];
 
@@ -142,7 +147,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&os=Debian%2011"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&os=Debian%2011"
 ```
 
 > The above command returns JSON structured like this:
@@ -171,6 +176,7 @@ Parameter | Default | Description
 cores | - | **Required** CPU cores (1-16)
 ram | - | **Required** RAM in GB (1-64)
 storage | - | **Required** NVMe storage in GB (10-500)
+snapshots | - | **Required** Snapshots (0-10)
 os | - | **Required** Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)
 
 ### Return codes
@@ -257,8 +263,10 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
     "resources": {
       "cores": 3,
       "ram": 12,
-      "storage": 25
-    }
+      "storage": 25,
+      "snapshots": 1
+    },
+    "snapshots": ["1698192636", "1698192865"]
   }
 }
 ```
@@ -1043,6 +1051,186 @@ Return Code | Meaning
 
 The `message` element can contain more details.
 
+## Create a snapshot
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/snapshot");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/snapshot?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can create a snapshot of a cloud server.
+
+### API endpoint
+
+`/cloud/snapshot`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+
+The `message` element can contain more details.
+
+## Restore a snapshot
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "snapshot" => "1698195103",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/rollback");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/rollback?id=123&snapshot=1698195103"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can restore a snapshot. **The server data will be overwritten.**
+
+### API endpoint
+
+`/cloud/rollback`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+snapshot | - | **Required** Snapshot ID/timestamp
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
+## Delete a snapshot
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "snapshot" => "1698195103",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/delsnap");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/delsnap?id=123&snapshot=1698195103"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can delete a snapshot.
+
+### API endpoint
+
+`/cloud/delsnap`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+snapshot | - | **Required** Snapshot ID/timestamp
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
 ## Set note/description
 
 ```php
@@ -1112,6 +1300,7 @@ $req = [
   "cores" => 4,
   "ram" => 16,
   "storage" => 50,
+  "snapshots" => 0,
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade");
@@ -1130,7 +1319,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&cores=4&ram=16&storage=50"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&cores=4&ram=16&storage=50&snapshots=0"
 ```
 
 > The above command returns JSON structured like this:
@@ -1165,6 +1354,7 @@ id | - | **Required** Cloud server ID
 cores | - | **Required** CPU cores after upgrade (1-16)
 ram | - | **Required** RAM in GB after upgrade (1-64)
 storage | - | **Required** NVMe storage in GB after upgrade (10-500)
+snapshots | - | **Required** Snapshots after upgrade (0-10)
 
 ### Return codes
 
