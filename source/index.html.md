@@ -1335,7 +1335,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&core
 Using this endpoint, you can order upgrade an existing server. Your account will be billed with the breakdown amount for the price difference. The recurring amount will change to the price for the new configuration.
 
 <aside class="notice">
-It is not possible to downgrade a server. Therefore, reverting an upgrade is not possible.
+It is not possible to downgrade the storage. Therefore, reverting an upgrade is not always possible.
 </aside>
 
 <aside class="notice">
@@ -1367,6 +1367,73 @@ Return Code | Meaning
 805 | Internal error
 806 | Invalid configuration (see message)
 807 | Not enough credit/limit
+
+## Request a refund
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/refund");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/refund?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true,
+  "refund": 5.00,
+}
+```
+
+If you are allowed to cancel cloud servers at any time, you can use this endpoint to delete a server. You will get a refund based on the unused and already paid days to your account.
+
+<aside class="notice">
+The server will be deleted immediately, including all data and snapshots!
+</aside>
+
+<aside class="notice">
+You will get your refund immediately. For example, if you ordered a 9 € server on the 1st day of month and request a refund on 10th day, you used it 10 of 30 days. Your refund will be 6 € (9 € / 30 days * (30 - 10 days)).
+</aside>
+
+### API endpoint
+
+`/cloud/refund`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** Cloud server ID
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+805 | Internal error
+806 | Not eligible for refund
 
 ## Cancel a server
 
