@@ -757,7 +757,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/key?id=123&proto=ipv4&ptr=test.nuxoa.de"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr?id=123&proto=ipv4&ptr=test.nuxoa.de"
 ```
 
 > The above command returns JSON structured like this:
@@ -1484,6 +1484,433 @@ In order to revoke an existing contract cancellation, please submit the date <co
 ### API endpoint
 
 `/hosting/cancel`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+date | - | **Required** Date of cancellation
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+805 | No cancellation is possible (product without recurring costs)
+806 | Provided cancellation date is invalid
+
+# IP subnets
+
+## Get subnet details
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/info");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/info?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": "100",
+  "message": "Subnet query successful.",
+  "data": {
+    "status": true,
+    "description": "",
+    "order_date": "2022-06-01 00:00:00",
+    "price": 10,
+    "currency": "EUR",
+    "period": "monthly",
+    "next_invoice": "2023-07-01",
+    "cancellation_date": "0000-00-00",
+    "cancellation_dates": [
+      "2023-07-01",
+      "2023-08-01",
+      "2023-09-01",
+      "2023-10-01",
+      "2023-11-01"
+    ],
+    "subnet": "185.236.11.224\/28",
+    "ips": {
+      "net": "185.236.11.224",
+      "gateway": "185.236.11.225",
+      "broadcast": "185.236.11.239",
+      "useable": [
+        "185.236.11.226", "185.236.11.227", "185.236.11.228", "185.236.11.229", "185.236.11.230", "185.236.11.231", 
+        "185.236.11.232", "185.236.11.233", "185.236.11.234", "185.236.11.235", "185.236.11.236", "185.236.11.237", 
+        "185.236.11.238"
+      ]
+    },
+    "ptr": {
+      "185.236.11.224": "",
+      "185.236.11.225": "",
+      "185.236.11.226": "ptr01.nuxoa.de",
+      "185.236.11.227": "ptr02.nuxoa.de",
+      "185.236.11.228": "",
+      "185.236.11.229": "",
+      "185.236.11.230": "",
+      "185.236.11.231": "",
+      "185.236.11.232": "",
+      "185.236.11.233": "ptr03.nuxoa.de",
+      "185.236.11.234": "",
+      "185.236.11.235": "",
+      "185.236.11.236": "",
+      "185.236.11.237": "",
+      "185.236.11.238": "",
+      "185.236.11.239": ""
+    }
+  }
+}
+```
+
+Using this endpoint, you can get details for one of your IP subnets.
+
+### API endpoint
+
+`/ip/info`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+
+## Set reverse DNS (PTR)
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "ip" => "185.236.11.230",
+  "ptr" => "test.nuxoa.de",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/ptr");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/ptr?id=123&ip=185.236.11.230&ptr=test.nuxoa.de"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can set the reverse DNS (PTR record) for an IP address.
+
+<aside class="notice">
+The PTR host must resolve to the IP address.
+</aside>
+
+### API endpoint
+
+`/ip/ptr`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+ip | - | **Required** IP address
+ptr | - | **Required** PTR record content
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
+## Traffic graphs
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "from" => strtotime("-24 hours"),
+  "to" => strtotime("now"),
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/traffic");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/traffic?id=123&from=168600000&to=1686004852"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  "https://trafficviewer.eu/?dev=6&port=tap123i0&from=1654034400&to=1686004852&signature=92dfb78a",
+  "https://trafficviewer.eu/?dev=6&port=tap123i1&from=1654034400&to=1686004852&signature=92dfb78a"
+]
+```
+
+Using this endpoint, you can retrieve a traffic graph for your subnet. You must specify a time range and get a permanent valid link to the according traffic graph as image. If more than one port is associated with your subnet, you will get more than one graph.
+
+### API endpoint
+
+`/ip/traffic`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+from | - | **Required** Start date as UNIX timestamp 
+to | - | **Required** End date as UNIX timestamp 
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+807 | Required task parameter is missing
+
+The `message` element can contain more details.
+
+## DDoS attacks
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/ddos");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/ddos?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "ip": "1.2.3.4",
+    "signatures": "UDP-bandwidth",
+    "astart": "2023-08-04T01:47:56+0000",
+    "aend": ""
+  },
+  {
+    "ip": "1.2.3.4",
+    "signatures": "UDP-bandwidth",
+    "astart": "2023-08-04T00:38:56+0000",
+    "aend": "2023-08-04T01:26:01+0000"
+  }
+]
+```
+
+Using this endpoint, you can retrieve current and past DDoS attacks for a subnet. We only return attacks of the last 24 hours (within their end).
+
+### API endpoint
+
+`/ip/ddos`
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+
+The `message` element can contain more details.
+
+## Set note/description
+
+```php
+<?php
+$req = [
+  "id" => 1,
+  "note" => "Per API bestellt",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/set");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/set?id=1&note=Per+API+bestellt"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": 100,
+  "message": "Description set successful.",
+  "data": {}
+}
+```
+
+Using this endpoint, you can update a note for a existing contract.
+
+### API endpoint
+
+`/ip/set`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+note | "" | The note to set for the contract
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No contract ID specified
+804 | Specified contract is unknown
+
+## Cancel a subnet
+
+```php
+<?php
+$req = [
+  "id" => 1,
+  "date" => "2019-02-12",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/cancel");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/ip/cancel?id=1&date=2019-02-12"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": 100,
+  "message": "Cancellation date set successful.",
+  "data": {
+    "date": "2019-02-12"
+  }
+}
+```
+
+Using this endpoint, you can set the cancellation date for a contract. Please make sure that you retrieve the possible dates first, as only valid dates are accepted.
+
+<aside class="notice">
+In order to revoke an existing contract cancellation, please submit the date <code>0000-00-00</code>.
+</aside>
+
+### API endpoint
+
+`/ip/cancel`
 
 ### Query Parameters
 
