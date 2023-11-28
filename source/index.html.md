@@ -129,6 +129,7 @@ $req = [
   "storage" => 50,
   "snapshots" => 0,
   "os" => "Debian 11",
+  "hostname" => "",
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order");
@@ -147,7 +148,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&os=Debian%2011"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&os=Debian%2011&hostname="
 ```
 
 > The above command returns JSON structured like this:
@@ -178,6 +179,7 @@ ram | - | **Required** RAM in GB (1-64)
 storage | - | **Required** NVMe storage in GB (10-500)
 snapshots | - | **Required** Snapshots (0-10)
 os | - | **Required** Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)
+hostname | - | Must be a FQDN, if specified
 
 ### Return codes
 
