@@ -555,6 +555,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
   <span class="s2">"storage"</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span>
   <span class="s2">"snapshots"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
   <span class="s2">"os"</span> <span class="o">=&gt;</span> <span class="s2">"Debian 11"</span><span class="p">,</span>
+  <span class="s2">"hostname"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order"</span><span class="p">);</span>
@@ -570,7 +571,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;os=Debian%2011"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;os=Debian%2011&amp;hostname="</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -619,6 +620,11 @@ You can fetch server details using <code>ID</code> and the <code>info</code>. Th
 <td>os</td>
 <td>-</td>
 <td><strong>Required</strong> Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>-</td>
+<td>Must be a FQDN, if specified</td>
 </tr>
 </tbody></table>
 <h3 id='return-codes'>Return codes</h3>
