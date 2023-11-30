@@ -541,6 +541,10 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
     </span><span class="nl">"snapshots"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w">
       </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.595</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"additional_ips"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8925</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -554,6 +558,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
   <span class="s2">"ram"</span> <span class="o">=&gt;</span> <span class="mi">8</span><span class="p">,</span>
   <span class="s2">"storage"</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span>
   <span class="s2">"snapshots"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"additional_ips"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
   <span class="s2">"os"</span> <span class="o">=&gt;</span> <span class="s2">"Debian 11"</span><span class="p">,</span>
   <span class="s2">"hostname"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
 <span class="p">];</span>
@@ -571,7 +576,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;os=Debian%2011&amp;hostname="</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;additional_ips=0&amp;os=Debian%2011&amp;hostname="</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -615,6 +620,11 @@ You can fetch server details using <code>ID</code> and the <code>info</code>. Th
 <td>snapshots</td>
 <td>-</td>
 <td><strong>Required</strong> Snapshots (0-10)</td>
+</tr>
+<tr>
+<td>additional_ips</td>
+<td>-</td>
+<td><strong>Required</strong> Additional IP addresses (0-3)</td>
 </tr>
 <tr>
 <td>os</td>
@@ -702,6 +712,14 @@ You can fetch server details using <code>ID</code> and the <code>info</code>. Th
       </span><span class="nl">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.4/32"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"gw"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.1"</span><span class="w">
     </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"additional_ips"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.5"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gw"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.3.1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ptr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test2.nuxoa.de"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Debian 11"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"***"</span><span class="p">,</span><span class="w">
@@ -1264,7 +1282,7 @@ Depending on the operating system, you may have to reboot the server before the 
 <h2 id='set-reverse-dns-ptr'>Set reverse DNS (PTR)</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
-  <span class="s2">"proto"</span> <span class="o">=&gt;</span> <span class="s2">"ipv4"</span><span class="p">,</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"1.2.3.4"</span><span class="p">,</span>
   <span class="s2">"ptr"</span> <span class="o">=&gt;</span> <span class="s2">"test.nuxoa.de"</span><span class="p">,</span>
 <span class="p">];</span>
 
@@ -1281,7 +1299,7 @@ Depending on the operating system, you may have to reboot the server before the 
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr?id=123&amp;proto=ipv4&amp;ptr=test.nuxoa.de"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr?id=123&amp;ip=1.2.3.4&amp;ptr=test.nuxoa.de"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1311,9 +1329,9 @@ The PTR host must resolve to the IP address.
 <td><strong>Required</strong> The ID of the contract</td>
 </tr>
 <tr>
-<td>proto</td>
+<td>ip</td>
 <td>-</td>
-<td><strong>Required</strong> IP address family (ipv4, ipv6)</td>
+<td><strong>Required</strong> IP address (IPv4 or IPv6)</td>
 </tr>
 <tr>
 <td>ptr</td>
@@ -1921,6 +1939,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
   <span class="s2">"ram"</span> <span class="o">=&gt;</span> <span class="mi">16</span><span class="p">,</span>
   <span class="s2">"storage"</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span>
   <span class="s2">"snapshots"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"additional_ips"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade"</span><span class="p">);</span>
@@ -1936,7 +1955,7 @@ The VNC link is valid once and must be used within 5 seconds. After that period,
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&amp;cores=4&amp;ram=16&amp;storage=50&amp;snapshots=0"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&amp;cores=4&amp;ram=16&amp;storage=50&amp;snapshots=0&amp;additional_ips=0"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1990,6 +2009,11 @@ Depending on the operating system, upgrades may apply not immediately. In this c
 <td>snapshots</td>
 <td>-</td>
 <td><strong>Required</strong> Snapshots after upgrade (0-10)</td>
+</tr>
+<tr>
+<td>additional_ips</td>
+<td>-</td>
+<td><strong>Required</strong> Additional IP address after upgrade (0-3)</td>
 </tr>
 </tbody></table>
 <h3 id='return-codes-19'>Return codes</h3>
