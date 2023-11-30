@@ -226,6 +226,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
   "message": "Server query successful.",
   "data": {
     "status": true,
+    "ready": true,
     "description": "",
     "order_date": "2022-06-01 00:00:00",
     "price": 10,
