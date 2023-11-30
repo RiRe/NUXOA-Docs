@@ -108,6 +108,10 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/pricing"
     "snapshots": {
       "net": 0.5,
       "gross": 0.595
+    },
+    "additional_ips": {
+      "net": 0.75,
+      "gross": 0.8925
     }
   }
 }
@@ -128,6 +132,7 @@ $req = [
   "ram" => 8,
   "storage" => 50,
   "snapshots" => 0,
+  "additional_ips" => 0,
   "os" => "Debian 11",
   "hostname" => "",
 ];
@@ -148,7 +153,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&os=Debian%2011&hostname="
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&additional_ips=0&os=Debian%2011&hostname="
 ```
 
 > The above command returns JSON structured like this:
@@ -178,6 +183,7 @@ cores | - | **Required** CPU cores (1-16)
 ram | - | **Required** RAM in GB (1-64)
 storage | - | **Required** NVMe storage in GB (10-500)
 snapshots | - | **Required** Snapshots (0-10)
+additional_ips | - | **Required** Additional IP addresses (0-3)
 os | - | **Required** Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)
 hostname | - | Must be a FQDN, if specified
 
@@ -251,6 +257,14 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
       "ip": "1.2.3.4/32",
       "gw": "1.2.3.1"
     },
+    "additional_ips": [
+      {
+        "ip": "1.2.3.5",
+        "mask": "32",
+        "gw": "1.2.3.1",
+        "ptr": "test2.nuxoa.de"
+      }
+    ],
     "os": "Debian 11",
     "username": "root",
     "password": "***",
@@ -740,7 +754,7 @@ The `message` element can contain more details.
 <?php
 $req = [
   "id" => 123,
-  "proto" => "ipv4",
+  "ip" => "1.2.3.4",
   "ptr" => "test.nuxoa.de",
 ];
 
@@ -760,7 +774,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr?id=123&proto=ipv4&ptr=test.nuxoa.de"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr?id=123&ip=1.2.3.4&ptr=test.nuxoa.de"
 ```
 
 > The above command returns JSON structured like this:
@@ -786,7 +800,7 @@ The PTR host must resolve to the IP address.
 Parameter | Default | Description
 --------- | ------- | -----------
 id | - | **Required** The ID of the contract
-proto | - | **Required** IP address family (ipv4, ipv6)
+ip | - | **Required** IP address (IPv4 or IPv6)
 ptr | - | **Required** PTR record content
 
 ### Return codes
@@ -1304,6 +1318,7 @@ $req = [
   "ram" => 16,
   "storage" => 50,
   "snapshots" => 0,
+  "additional_ips" => 0,
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade");
@@ -1322,7 +1337,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&cores=4&ram=16&storage=50&snapshots=0"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/upgrade?id=123&cores=4&ram=16&storage=50&snapshots=0&additional_ips=0"
 ```
 
 > The above command returns JSON structured like this:
@@ -1358,6 +1373,7 @@ cores | - | **Required** CPU cores after upgrade (1-16)
 ram | - | **Required** RAM in GB after upgrade (1-64)
 storage | - | **Required** NVMe storage in GB after upgrade (10-500)
 snapshots | - | **Required** Snapshots after upgrade (0-10)
+additional_ips | - | **Required** Additional IP address after upgrade (0-3)
 
 ### Return codes
 
