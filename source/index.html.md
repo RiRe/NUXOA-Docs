@@ -281,7 +281,8 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
       "cores": 3,
       "ram": 12,
       "storage": 25,
-      "snapshots": 1
+      "snapshots": 1,
+      "additional_ips": 1
     },
     "snapshots": ["1698192636", "1698192865"]
   }
