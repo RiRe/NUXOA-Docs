@@ -757,6 +757,7 @@ $req = [
   "id" => 123,
   "ip" => "1.2.3.4",
   "ptr" => "test.nuxoa.de",
+  "proto" => "ipv4",
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/ptr");
@@ -803,6 +804,7 @@ Parameter | Default | Description
 id | - | **Required** The ID of the contract
 ip | - | **Required** IP address (IPv4 or IPv6)
 ptr | - | **Required** PTR record content
+proto | - | **Required** Type ipv4 / ipv6
 
 ### Return codes
 
@@ -1387,6 +1389,132 @@ Return Code | Meaning
 805 | Internal error
 806 | Invalid configuration (see message)
 807 | Not enough credit/limit
+
+## Mount an ISO
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "iso" => "debian-12.iso",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/mountiso");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/mountiso?server_id=123&iso=debian-12.iso"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can mount an ISO file to a server. Make sure that the ISO file exists and is available for mounting.
+
+<aside class="notice">
+Ensure that the server is in an appropriate state (e.g., powered off) before mounting an ISO.
+</aside>
+
+### API endpoint
+
+`/cloud/mountiso`
+
+### Query Parameters
+
+Parameter    | Default | Description
+-------------|---------|-------------
+id    | -       | **Required** The ID of the server where the ISO should be mounted.
+iso          | -       | **Required** The name of the ISO file to be mounted.
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes apply.
+
+Return Code | Meaning
+------------|-------
+803         | No contract ID specified
+804         | Specified contract is unknown
+806         | Specified ISO file is invalid or does not exist
+
+## Unmount an ISO
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "iso_id" => 1,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/unmountiso");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/unmountiso?server_id=123&iso_id=1"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success": true
+}
+```
+
+Using this endpoint, you can remove an ISO file from a server.
+
+<aside class="notice">
+Ensure that the server is in an appropriate state (e.g., powered off) before unmounting an ISO.
+</aside>
+
+### API endpoint
+
+`/cloud/unmountiso`
+
+### Query Parameters
+
+Parameter    | Default | Description
+-------------|---------|-------------
+id    | -       | **Required** The ID of the server where the ISO should be mounted.
+iso_id          | -       | **Required** The id of the mounted slot.
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes apply.
+
+Return Code | Meaning
+------------|-------
+803         | No contract ID specified
+804         | Specified contract is unknown
+
 
 ## Request a refund
 
