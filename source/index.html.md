@@ -284,7 +284,18 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/info?id=123"
       "snapshots": 1,
       "additional_ips": 1
     },
-    "snapshots": ["1698192636", "1698192865"]
+    "snapshots": ["1698192636", "1698192865"],
+    "isos": [
+      "debian-12.10.0-amd64-netinst.iso"
+    ],
+    "isosMounted": {
+      "ide0": "local:iso/debian-12.10.0-amd64-netinst.iso,media=cdrom,size=633M"
+    },
+    "resources_percent": {
+      "cpu": 0,
+      "memory": 0,
+      "disk": 0
+    }
   }
 }
 ```
