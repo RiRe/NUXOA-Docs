@@ -1523,6 +1523,341 @@ Return Code | Meaning
 805 | No cancellation is possible (product without recurring costs)
 806 | Provided cancellation date is invalid
 
+
+# Dedicated server
+
+## List available Servers
+
+```php
+<?php
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/list");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/list"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": "100",
+  "message": "Dedicated servers retrieved successfully.",
+  "data": {
+    "datacenters": {
+      "0": {
+        "name": "maincubes",
+        "category": "1",
+        "servers": {
+          "0": {
+            "id":	"123",
+            "name":	"epyc2",
+            "category":	"11",
+            "datacenter":	"maincubes",
+            "cpu":	"AMD Epyc 7702",
+            "ram":	"256 GB DDR4",
+            "ram_size":	256,
+            "ram_type":	"DDR4",
+            "storage":	"4 TB NVMe",
+            "network":	"2x 10 Gbit/s ",
+            "price":	150,
+            "currency":	"EUR",
+            "available":	1
+          }
+        }
+      }
+    },
+    "total_servers": 1,
+    "currency": "EUR"
+  }
+}
+```
+
+Using this endpoint, you can get the list of all our dedicated servers.
+
+### API endpoint
+
+`/dedicated/list`
+
+## Order a new server
+
+```php
+<?php
+$req = [
+  "id" => 1,
+  "note" => "Optional"
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": 100,
+  "message": "Product order successful",
+  "data": {
+    "id": 8
+  }
+}
+```
+
+Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.
+
+<aside class="notice">
+You can fetch server details using <code>ID</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+</aside>
+
+### API endpoint
+
+`/dedicated/order`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** id of Product
+note | - |  A Note
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No product specified
+804 | Invalid product specified
+805 | Not enough credit
+
+## Get server details
+
+```php
+<?php
+$req = [
+  "id" => 123,
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/info");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/info?id=123"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": "100",
+  "message": "Account query successful.",
+  "data": {
+    "name": "test",
+    "status": true,
+    "description": "",
+    "order_date": "2022-06-01 00:00:00",
+    "product": 2,
+    "price": 21.00,
+    "period": "monthly",
+    "next_invoice": "2023-07-01",
+    "contract_time": "2023-07-01",
+    "notification_period": "2023-07-01",
+    "cancellation_date": "2023-07-01",
+    "login_data": [],
+    "tasks": [],
+    "output": ""
+  }
+}
+```
+
+Using this endpoint, you can get details for one of your servers.
+
+### API endpoint
+
+`/dedicated/info`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the product
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No account specified
+804 | Invalid account specified
+
+## Set Note/Description
+
+```php
+<?php
+$req = [
+  "id" => 123,
+  "note" => "This is a Note"
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/set");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/set?id=1&note=Note"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": "100",
+  "message": "Account query successful.",
+  "data": ""
+}
+```
+
+Using this endpoint, you can update a note for a existing contract.
+
+### API endpoint
+
+`/dedicated/set`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the product
+note | - | The note to set for the contract
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No account specified
+804 | Invalid account specified
+
+## Cancel a server
+
+```php
+<?php
+$req = [
+  "id" => 1,
+  "date" => "2019-02-12",
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/cancel");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/cancel?id=1&date=2019-02-12"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "code": 100,
+  "message": "Cancellation date set successful.",
+  "data": {
+    "date": "2019-02-12"
+  }
+}
+```
+
+Using this endpoint, you can set the cancellation date for a contract. Please make sure that you retrieve the possible dates first, as only valid dates are accepted.
+
+<aside class="notice">
+In order to revoke an existing contract cancellation, please submit the date <code>0000-00-00</code>.
+</aside>
+
+### API endpoint
+
+`/dedicated/cancel`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** The ID of the contract
+date | - | **Required** Date of cancellation
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+803 | No account specified
+804 | Invalid account specified
+805 | No cancellation possible because of onetime
+806 | Provided cancellation date is invalid
+
 # IP subnets
 
 ## Get subnet details
