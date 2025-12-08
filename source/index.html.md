@@ -168,7 +168,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8
 Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.
 
 <aside class="notice">
-You can fetch server details using <code>ID</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch server details using <code>ID</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
 
 ### API endpoint
@@ -1526,7 +1526,7 @@ Return Code | Meaning
 
 # Dedicated server
 
-## List available Servers
+## List available servers
 
 ```php
 <?php
@@ -1554,18 +1554,18 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/list"
 {
   "code": "100",
   "message": "Dedicated servers retrieved successfully.",
-  "data": {
-    "0": {
-      "id": "123",
-      "name": "epyc2",
-      "datacenter": "maincubes",
-      "cpu": "AMD Epyc 7702",
+  "data": [
+    {
+      "id": 123,
+      "name": "epycXYZ",
+      "datacenter": "maincubes FRA01",
+      "cpu": "AMD EPYC 7702",
       "ram": "256 GB DDR4",
       "storage": "4 TB NVMe",
-      "network": "2x 10 Gbit/s ",
-      "price": 150
+      "network": "2x 10 Gbit/s",
+      "price": 178.50
     }
-  }
+  ]
 }
 ```
 
@@ -1575,7 +1575,7 @@ Using this endpoint, you can get the list of all our available dedicated servers
 
 `/dedicated/list`
 
-## Order a new server
+## Order a server
 
 ```php
 <?php
@@ -1615,10 +1615,10 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1"
 }
 ```
 
-Using this endpoint, you can order a new server. Your account will be billed with the price for the Server.
+Using this endpoint, you can order a new server. Your account will be billed with the price for the server.
 
 <aside class="notice">
-You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
 
 ### API endpoint
@@ -1629,7 +1629,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 
 Parameter | Default | Description
 --------- | ------- | -----------
-id | - | **Required** id of Server from `/dedicated/list` endpoint
+id | - | **Required** ID of server from `/dedicated/list` endpoint
 note | - |  A description to identify the new contract
 
 ### Return codes
@@ -1638,8 +1638,8 @@ This are the additional return codes for this action. The global return codes ap
 
 Return Code | Meaning
 ---------- | -------
-803 | No product specified
-804 | Invalid product specified
+803 | No server ID specified
+804 | Invalid server ID specified
 805 | Not enough credit
 
 ## Get server details
@@ -1676,7 +1676,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/info?id=123"
   "code": "100",
   "message": "Account query successful.",
   "data": {
-    "name": "test",
+    "name": "epycXYZ",
     "status": true,
     "description": "",
     "order_date": "2022-06-01 00:00:00",
@@ -1715,7 +1715,7 @@ Return Code | Meaning
 803 | No contract ID specified
 804 | Invalid contract ID specified
 
-## Set Note/Description
+## Set note/description
 
 ```php
 <?php
