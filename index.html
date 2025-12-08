@@ -383,16 +383,16 @@
             <a href="#dedicated-server" class="toc-h1 toc-link" data-title="Dedicated server">Dedicated server</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#list-available-servers" class="toc-h2 toc-link" data-title="List available Servers">List available Servers</a>
+                    <a href="#list-available-servers" class="toc-h2 toc-link" data-title="List available servers">List available servers</a>
                   </li>
                   <li>
-                    <a href="#order-a-new-server-2" class="toc-h2 toc-link" data-title="Order a new server">Order a new server</a>
+                    <a href="#order-a-server" class="toc-h2 toc-link" data-title="Order a server">Order a server</a>
                   </li>
                   <li>
                     <a href="#get-server-details-2" class="toc-h2 toc-link" data-title="Get server details">Get server details</a>
                   </li>
                   <li>
-                    <a href="#set-note-description-2" class="toc-h2 toc-link" data-title="Set Note/Description">Set Note/Description</a>
+                    <a href="#set-note-description-2" class="toc-h2 toc-link" data-title="Set note/description">Set note/description</a>
                   </li>
                   <li>
                     <a href="#cancel-a-server-2" class="toc-h2 toc-link" data-title="Cancel a server">Cancel a server</a>
@@ -609,7 +609,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
 <p>Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.</p>
 
 <aside class="notice">
-You can fetch server details using <code>ID</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch server details using <code>ID</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
 <h3 id='api-endpoint-2'>API endpoint</h3>
 <p><code>/cloud/order</code></p>
@@ -2230,7 +2230,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Provided cancellation date is invalid</td>
 </tr>
 </tbody></table>
-<h1 id='dedicated-server'>Dedicated server</h1><h2 id='list-available-servers'>List available Servers</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h1 id='dedicated-server'>Dedicated server</h1><h2 id='list-available-servers'>List available servers</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/list"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
@@ -2251,24 +2251,24 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dedicated servers retrieved successfully."</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epyc2"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"datacenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maincubes"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cpu"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AMD Epyc 7702"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epycXYZ"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"datacenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"maincubes FRA01"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cpu"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AMD EPYC 7702"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"ram"</span><span class="p">:</span><span class="w"> </span><span class="s2">"256 GB DDR4"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4 TB NVMe"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2x 10 Gbit/s "</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="w">
+      </span><span class="nl">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2x 10 Gbit/s"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">178.50</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get the list of all our available dedicated servers.</p>
 <h3 id='api-endpoint-23'>API endpoint</h3>
 <p><code>/dedicated/list</code></p>
-<h2 id='order-a-new-server-2'>Order a new server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='order-a-server'>Order a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
@@ -2300,10 +2300,10 @@ In order to revoke an existing contract cancellation, please submit the date <co
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the Server.</p>
+<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the server.</p>
 
 <aside class="notice">
-You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code>. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
 <h3 id='api-endpoint-24'>API endpoint</h3>
 <p><code>/dedicated/order</code></p>
@@ -2318,7 +2318,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <tr>
 <td>id</td>
 <td>-</td>
-<td><strong>Required</strong> id of Server from <code>/dedicated/list</code> endpoint</td>
+<td><strong>Required</strong> ID of server from <code>/dedicated/list</code> endpoint</td>
 </tr>
 <tr>
 <td>note</td>
@@ -2337,11 +2337,11 @@ You can fetch server details after successfully ordering using <code>id</code> a
 </thead><tbody>
 <tr>
 <td>803</td>
-<td>No product specified</td>
+<td>No server ID specified</td>
 </tr>
 <tr>
 <td>804</td>
-<td>Invalid product specified</td>
+<td>Invalid server ID specified</td>
 </tr>
 <tr>
 <td>805</td>
@@ -2375,7 +2375,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account query successful."</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epycXYZ"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-01 00:00:00"</span><span class="p">,</span><span class="w">
@@ -2427,7 +2427,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <td>Invalid contract ID specified</td>
 </tr>
 </tbody></table>
-<h2 id='set-note-description-2'>Set Note/Description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='set-note-description-2'>Set note/description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
   <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"This is a Note"</span>
