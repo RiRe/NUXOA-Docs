@@ -400,6 +400,29 @@
               </ul>
           </li>
           <li>
+            <a href="#plesk-api" class="toc-h1 toc-link" data-title="Plesk Api">Plesk Api</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-pricing" class="toc-h2 toc-link" data-title="Get pricing">Get pricing</a>
+                  </li>
+                  <li>
+                    <a href="#set-ip" class="toc-h2 toc-link" data-title="Set IP">Set IP</a>
+                  </li>
+                  <li>
+                    <a href="#order-a-server-2" class="toc-h2 toc-link" data-title="Order a server">Order a server</a>
+                  </li>
+                  <li>
+                    <a href="#get-server-details-3" class="toc-h2 toc-link" data-title="Get server details">Get server details</a>
+                  </li>
+                  <li>
+                    <a href="#set-note-description-3" class="toc-h2 toc-link" data-title="Set note/description">Set note/description</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-a-server-3" class="toc-h2 toc-link" data-title="Cancel a server">Cancel a server</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#ip-subnets" class="toc-h1 toc-link" data-title="IP subnets">IP subnets</a>
               <ul class="toc-list-h2">
                   <li>
@@ -415,7 +438,7 @@
                     <a href="#ddos-attacks-2" class="toc-h2 toc-link" data-title="DDoS attacks">DDoS attacks</a>
                   </li>
                   <li>
-                    <a href="#set-note-description-3" class="toc-h2 toc-link" data-title="Set note/description">Set note/description</a>
+                    <a href="#set-note-description-4" class="toc-h2 toc-link" data-title="Set note/description">Set note/description</a>
                   </li>
                   <li>
                     <a href="#cancel-a-subnet" class="toc-h2 toc-link" data-title="Cancel a subnet">Cancel a subnet</a>
@@ -469,7 +492,7 @@
               </ul>
           </li>
           <li>
-            <a href="#return-codes-44" class="toc-h1 toc-link" data-title="Return codes">Return codes</a>
+            <a href="#return-codes-50" class="toc-h1 toc-link" data-title="Return codes">Return codes</a>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -2585,6 +2608,486 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Provided cancellation date is invalid</td>
 </tr>
 </tbody></table>
+<h1 id='plesk-api'>Plesk Api</h1><h2 id='get-pricing'>Get pricing</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/pricing"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/pricing"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"licenses"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"admin_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"pro_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"host_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"admin_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"pro_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"host_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, returns all avaiable licenses with their pricing.</p>
+<h3 id='api-endpoint-28'>API endpoint</h3>
+<p><code>/plesk/pricing</code></p>
+<h3 id='query-parameters-25'>Query Parameters</h3>
+<p>No parameters needed.</p>
+<h3 id='return-codes-26'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>100</td>
+<td>Pricing fetched</td>
+</tr>
+</tbody></table>
+<h2 id='set-ip'>Set IP</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"192.168.100.38"</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip?id=1&amp;ip=192.168.100.38"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success: true
+}
+</span></code></pre></div>
+<p>Using this endpoint, you can set the ip of a server.</p>
+<h3 id='api-endpoint-29'>API endpoint</h3>
+<p><code>/plesk/ip</code></p>
+<h3 id='query-parameters-26'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> ID of server from <code>/plesk/list</code> endpoint</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>-</td>
+<td><strong>Required</strong> Must be a valid IP address</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-27'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>100</td>
+<td>IP address updated successfully</td>
+</tr>
+<tr>
+<td>803</td>
+<td>No account specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid account specified.</td>
+</tr>
+<tr>
+<td>808</td>
+<td>Invalid IP address format</td>
+</tr>
+</tbody></table>
+<h2 id='order-a-server-2'>Order a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?id=1"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product order successful"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the server.</p>
+
+<aside class="notice">
+You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+</aside>
+<h3 id='api-endpoint-30'>API endpoint</h3>
+<p><code>/plesk/order</code></p>
+<h3 id='query-parameters-27'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> ID of server from <code>/plesk/list</code> endpoint</td>
+</tr>
+<tr>
+<td>note</td>
+<td>-</td>
+<td>A description to identify the new contract</td>
+</tr>
+<tr>
+<td>license</td>
+<td>-</td>
+<td>License key of product</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>-</td>
+<td><strong>Required</strong> Must be a valid IP address</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-28'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>803</td>
+<td>No server ID specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid server ID specified</td>
+</tr>
+<tr>
+<td>805</td>
+<td>Not enough credit</td>
+</tr>
+<tr>
+<td>805</td>
+<td>Invalid IP address</td>
+</tr>
+</tbody></table>
+<h2 id='get-server-details-3'>Get server details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/info"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/info?id=123"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account query successful."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epycXYZ"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"order_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-01 00:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">21.00</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monthly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next_invoice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-07-01"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contract_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-07-01"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"notification_period"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-07-01"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cancellation_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-07-01"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"login_data"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"output"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, you can get details for one of your servers.</p>
+<h3 id='api-endpoint-31'>API endpoint</h3>
+<p><code>/plesk/info</code></p>
+<h3 id='query-parameters-28'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> The ID of the contract (Originally returned by <code>/plesk/order</code> endpoint)</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-29'>Return codes</h3>
+<p>These are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>803</td>
+<td>No contract ID specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid contract ID specified</td>
+</tr>
+</tbody></table>
+<h2 id='set-note-description-3'>Set note/description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
+  <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"This is a Note"</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/set"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/set?id=1&amp;note=Note"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account query successful."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, you can update a note for a existing contract.</p>
+<h3 id='api-endpoint-32'>API endpoint</h3>
+<p><code>/plesk/set</code></p>
+<h3 id='query-parameters-29'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> The ID of the contract (Originally returned by <code>/plesk/order</code> endpoint)</td>
+</tr>
+<tr>
+<td>note</td>
+<td>-</td>
+<td>The note to set for the contract</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-30'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>803</td>
+<td>No contract ID specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid contact ID specified</td>
+</tr>
+</tbody></table>
+<h2 id='cancel-a-server-3'>Cancel a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"date"</span> <span class="o">=&gt;</span> <span class="s2">"2019-02-12"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/cancel"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/cancel?id=1&amp;date=2019-02-12"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancellation date set successful."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-12"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using this endpoint, you can set the cancellation date for a contract. Please make sure that you retrieve the possible dates first by calling the Endpoint <code>/plesk/cancel</code> without the <code>date</code> parameter, as only valid dates are accepted.</p>
+
+<aside class="notice">
+Please note a revoke of an existing contract cancellation isnt possible.
+</aside>
+<h3 id='api-endpoint-33'>API endpoint</h3>
+<p><code>/plesk/cancel</code></p>
+<h3 id='query-parameters-30'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> The ID of the contract</td>
+</tr>
+<tr>
+<td>date</td>
+<td>-</td>
+<td><strong>Required</strong> Date of cancellation</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>-</td>
+<td>Can be used instead of date parameter.</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-31'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>803</td>
+<td>No contract ID specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid contract ID specified</td>
+</tr>
+<tr>
+<td>805</td>
+<td>No cancellation possible because of onetime</td>
+</tr>
+<tr>
+<td>806</td>
+<td>Provided cancellation date is invalid</td>
+</tr>
+<tr>
+<td>807</td>
+<td>Reverting cancellation is not possible</td>
+</tr>
+</tbody></table>
 <h1 id='ip-subnets'>IP subnets</h1><h2 id='get-subnet-details'>Get subnet details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
@@ -2660,9 +3163,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get details for one of your IP subnets.</p>
-<h3 id='api-endpoint-28'>API endpoint</h3>
+<h3 id='api-endpoint-34'>API endpoint</h3>
 <p><code>/ip/info</code></p>
-<h3 id='query-parameters-25'>Query Parameters</h3>
+<h3 id='query-parameters-31'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2676,7 +3179,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The ID of the contract</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-26'>Return codes</h3>
+<h3 id='return-codes-32'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2728,9 +3231,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <aside class="notice">
 The PTR host must resolve to the IP address.
 </aside>
-<h3 id='api-endpoint-29'>API endpoint</h3>
+<h3 id='api-endpoint-35'>API endpoint</h3>
 <p><code>/ip/ptr</code></p>
-<h3 id='query-parameters-26'>Query Parameters</h3>
+<h3 id='query-parameters-32'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2754,7 +3257,7 @@ The PTR host must resolve to the IP address.
 <td><strong>Required</strong> PTR record content</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-27'>Return codes</h3>
+<h3 id='return-codes-33'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -2809,9 +3312,9 @@ The PTR host must resolve to the IP address.
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can retrieve a traffic graph for your subnet. You must specify a time range and get a permanent valid link to the according traffic graph as image. If more than one port is associated with your subnet, you will get more than one graph.</p>
-<h3 id='api-endpoint-30'>API endpoint</h3>
+<h3 id='api-endpoint-36'>API endpoint</h3>
 <p><code>/ip/traffic</code></p>
-<h3 id='query-parameters-27'>Query Parameters</h3>
+<h3 id='query-parameters-33'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2835,7 +3338,7 @@ The PTR host must resolve to the IP address.
 <td><strong>Required</strong> End date as UNIX timestamp</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-28'>Return codes</h3>
+<h3 id='return-codes-34'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -2898,9 +3401,9 @@ The PTR host must resolve to the IP address.
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can retrieve current and past DDoS attacks for a subnet. We only return attacks of the last 24 hours (within their end).</p>
-<h3 id='api-endpoint-31'>API endpoint</h3>
+<h3 id='api-endpoint-37'>API endpoint</h3>
 <p><code>/ip/ddos</code></p>
-<h3 id='return-codes-29'>Return codes</h3>
+<h3 id='return-codes-35'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies. If there is no error, no return code and no message is returned.</p>
 
 <table><thead>
@@ -2920,7 +3423,7 @@ The PTR host must resolve to the IP address.
 </tbody></table>
 
 <p>The <code>message</code> element can contain more details.</p>
-<h2 id='set-note-description-3'>Set note/description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='set-note-description-4'>Set note/description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Per API bestellt"</span><span class="p">,</span>
@@ -2951,9 +3454,9 @@ The PTR host must resolve to the IP address.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can update a note for a existing contract.</p>
-<h3 id='api-endpoint-32'>API endpoint</h3>
+<h3 id='api-endpoint-38'>API endpoint</h3>
 <p><code>/ip/set</code></p>
-<h3 id='query-parameters-28'>Query Parameters</h3>
+<h3 id='query-parameters-34'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2972,7 +3475,7 @@ The PTR host must resolve to the IP address.
 <td>The note to set for the contract</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-30'>Return codes</h3>
+<h3 id='return-codes-36'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3027,9 +3530,9 @@ The PTR host must resolve to the IP address.
 <aside class="notice">
 In order to revoke an existing contract cancellation, please submit the date <code>0000-00-00</code>.
 </aside>
-<h3 id='api-endpoint-33'>API endpoint</h3>
+<h3 id='api-endpoint-39'>API endpoint</h3>
 <p><code>/ip/cancel</code></p>
-<h3 id='query-parameters-29'>Query Parameters</h3>
+<h3 id='query-parameters-35'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3048,7 +3551,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Date of cancellation</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-31'>Return codes</h3>
+<h3 id='return-codes-37'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3169,9 +3672,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint is used to get listed all your domains.</p>
-<h3 id='api-endpoint-34'>API endpoint</h3>
+<h3 id='api-endpoint-40'>API endpoint</h3>
 <p><code>/domain/list</code></p>
-<h3 id='query-parameters-30'>Query Parameters</h3>
+<h3 id='query-parameters-36'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3185,7 +3688,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Filter by domain name (wildcard)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-32'>Return codes</h3>
+<h3 id='return-codes-38'>Return codes</h3>
 <p>The global return codes applies.</p>
 <h2 id='register-a-domain'>Register a domain</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
@@ -3261,9 +3764,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can register a domain. Please make sure that the domain is available first.</p>
-<h3 id='api-endpoint-35'>API endpoint</h3>
+<h3 id='api-endpoint-41'>API endpoint</h3>
 <p><code>/domain/register</code></p>
-<h3 id='query-parameters-31'>Query Parameters</h3>
+<h3 id='query-parameters-37'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3312,7 +3815,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute registration in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-33'>Return codes</h3>
+<h3 id='return-codes-39'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3441,9 +3944,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can transfer a domain. The request is identical to the <code>register</code> request, except requiring the parameter <code>password</code>.</p>
-<h3 id='api-endpoint-36'>API endpoint</h3>
+<h3 id='api-endpoint-42'>API endpoint</h3>
 <p><code>/domain/transfer</code></p>
-<h3 id='query-parameters-32'>Query Parameters</h3>
+<h3 id='query-parameters-38'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3497,7 +4000,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute transfer in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-34'>Return codes</h3>
+<h3 id='return-codes-40'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3632,9 +4135,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can modify an existing domain.</p>
-<h3 id='api-endpoint-37'>API endpoint</h3>
+<h3 id='api-endpoint-43'>API endpoint</h3>
 <p><code>/domain/modify</code></p>
-<h3 id='query-parameters-33'>Query Parameters</h3>
+<h3 id='query-parameters-39'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3698,7 +4201,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute modification in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-35'>Return codes</h3>
+<h3 id='return-codes-41'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3807,9 +4310,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can execute a domain owner change (trade). This is a chargeable action required if you want to change the domain owner data for a TLD with chargeable domain owner change. You are not able to change the domain owner via the <code>domain/modify</code> endpoint in this case.</p>
-<h3 id='api-endpoint-38'>API endpoint</h3>
+<h3 id='api-endpoint-44'>API endpoint</h3>
 <p><code>/domain/trade</code></p>
-<h3 id='query-parameters-34'>Query Parameters</h3>
+<h3 id='query-parameters-40'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3848,7 +4351,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Set to <code>true</code> in order to execute trade in the background - faster response</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-36'>Return codes</h3>
+<h3 id='return-codes-42'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3914,9 +4417,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can request the authcode for your domain.</p>
-<h3 id='api-endpoint-39'>API endpoint</h3>
+<h3 id='api-endpoint-45'>API endpoint</h3>
 <p><code>/domain/password</code></p>
-<h3 id='query-parameters-35'>Query Parameters</h3>
+<h3 id='query-parameters-41'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3930,7 +4433,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The domain to request the authcode for</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-37'>Return codes</h3>
+<h3 id='return-codes-43'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -3979,9 +4482,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can delete a domain or return it to registry.</p>
-<h3 id='api-endpoint-40'>API endpoint</h3>
+<h3 id='api-endpoint-46'>API endpoint</h3>
 <p><code>/domain/delete</code></p>
-<h3 id='query-parameters-36'>Query Parameters</h3>
+<h3 id='query-parameters-42'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4000,7 +4503,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The type of deletion (0 = normal delete, 1 = connected return, 2 = disconnected return)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-38'>Return codes</h3>
+<h3 id='return-codes-44'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -4059,9 +4562,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get all DNS zones existing for domains using the nameservers of the provider.</p>
-<h3 id='api-endpoint-41'>API endpoint</h3>
+<h3 id='api-endpoint-47'>API endpoint</h3>
 <p><code>/dns/list</code></p>
-<h3 id='query-parameters-37'>Query Parameters</h3>
+<h3 id='query-parameters-43'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4075,7 +4578,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Filter by domain (wildcard)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-39'>Return codes</h3>
+<h3 id='return-codes-45'>Return codes</h3>
 <p>The global return codes applies.</p>
 <h2 id='get-zone-records'>Get zone records</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
@@ -4122,9 +4625,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can get all records existing in the specified DNS zone.</p>
-<h3 id='api-endpoint-42'>API endpoint</h3>
+<h3 id='api-endpoint-48'>API endpoint</h3>
 <p><code>/dns/show</code></p>
-<h3 id='query-parameters-38'>Query Parameters</h3>
+<h3 id='query-parameters-44'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4138,7 +4641,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The domain/zone name you want to get</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-40'>Return codes</h3>
+<h3 id='return-codes-46'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -4191,9 +4694,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can create a new record in a DNS zone.</p>
-<h3 id='api-endpoint-43'>API endpoint</h3>
+<h3 id='api-endpoint-49'>API endpoint</h3>
 <p><code>/dns/add</code></p>
-<h3 id='query-parameters-39'>Query Parameters</h3>
+<h3 id='query-parameters-45'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4232,7 +4735,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Priority (can be 0)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-41'>Return codes</h3>
+<h3 id='return-codes-47'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -4290,9 +4793,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can edit an existing record in a DNS zone.</p>
-<h3 id='api-endpoint-44'>API endpoint</h3>
+<h3 id='api-endpoint-50'>API endpoint</h3>
 <p><code>/dns/edit</code></p>
-<h3 id='query-parameters-40'>Query Parameters</h3>
+<h3 id='query-parameters-46'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4336,7 +4839,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> Priority (can be 0)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-42'>Return codes</h3>
+<h3 id='return-codes-48'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -4397,9 +4900,9 @@ In order to revoke an existing contract cancellation, please submit the date <co
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Using this endpoint, you can delete an existing record from a DNS zone.</p>
-<h3 id='api-endpoint-45'>API endpoint</h3>
+<h3 id='api-endpoint-51'>API endpoint</h3>
 <p><code>/dns/delete</code></p>
-<h3 id='query-parameters-41'>Query Parameters</h3>
+<h3 id='query-parameters-47'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -4418,7 +4921,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td><strong>Required</strong> The ID of the record to be deleted (find in <code>dns/show</code> as key)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-43'>Return codes</h3>
+<h3 id='return-codes-49'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -4444,7 +4947,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Record not found</td>
 </tr>
 </tbody></table>
-<h1 id='return-codes-44'>Return codes</h1>
+<h1 id='return-codes-50'>Return codes</h1>
 <p>The NUXOA API uses the following return codes, they are contained in the <code>code</code> element in the JSON response:</p>
 
 <table><thead>
