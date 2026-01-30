@@ -400,25 +400,25 @@
               </ul>
           </li>
           <li>
-            <a href="#plesk-api" class="toc-h1 toc-link" data-title="Plesk Api">Plesk Api</a>
+            <a href="#plesk-licenses" class="toc-h1 toc-link" data-title="Plesk licenses">Plesk licenses</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-pricing" class="toc-h2 toc-link" data-title="Get pricing">Get pricing</a>
+                    <a href="#get-license-types" class="toc-h2 toc-link" data-title="Get license types">Get license types</a>
                   </li>
                   <li>
-                    <a href="#set-ip" class="toc-h2 toc-link" data-title="Set IP">Set IP</a>
+                    <a href="#order-a-license" class="toc-h2 toc-link" data-title="Order a license">Order a license</a>
                   </li>
                   <li>
-                    <a href="#order-a-server-2" class="toc-h2 toc-link" data-title="Order a server">Order a server</a>
+                    <a href="#get-license-details" class="toc-h2 toc-link" data-title="Get license details">Get license details</a>
                   </li>
                   <li>
-                    <a href="#get-server-details-3" class="toc-h2 toc-link" data-title="Get server details">Get server details</a>
+                    <a href="#change-license-ip" class="toc-h2 toc-link" data-title="Change license IP">Change license IP</a>
                   </li>
                   <li>
                     <a href="#set-note-description-3" class="toc-h2 toc-link" data-title="Set note/description">Set note/description</a>
                   </li>
                   <li>
-                    <a href="#cancel-a-server-3" class="toc-h2 toc-link" data-title="Cancel a server">Cancel a server</a>
+                    <a href="#cancel-a-license" class="toc-h2 toc-link" data-title="Cancel a license">Cancel a license</a>
                   </li>
               </ul>
           </li>
@@ -2608,7 +2608,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Provided cancellation date is invalid</td>
 </tr>
 </tbody></table>
-<h1 id='plesk-api'>Plesk Api</h1><h2 id='get-pricing'>Get pricing</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h1 id='plesk-licenses'>Plesk licenses</h1><h2 id='get-license-types'>Get license types</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/pricing"</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
@@ -2628,36 +2628,40 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"licenses"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"admin_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"pro_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"host_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"admin_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"pro_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"host_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="err">x.xx</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pricing fetched."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"licenses"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"admin_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.59</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"pro_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.71</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"host_vps"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.58</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"admin_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.59</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"pro_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.73</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"host_dedicated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"net"</span><span class="p">:</span><span class="w"> </span><span class="mf">37.90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gross"</span><span class="p">:</span><span class="w"> </span><span class="mf">45.10</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, returns all avaiable licenses with their pricing.</p>
+<p>This endpoint returns all avaiable licenses with their respective price.</p>
 <h3 id='api-endpoint-28'>API endpoint</h3>
 <p><code>/plesk/pricing</code></p>
 <h3 id='query-parameters-25'>Query Parameters</h3>
@@ -2676,85 +2680,10 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <td>Pricing fetched</td>
 </tr>
 </tbody></table>
-<h2 id='set-ip'>Set IP</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='order-a-license'>Order a license</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"192.168.100.38"</span>
-<span class="p">];</span>
-
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip"</span><span class="p">);</span>
-<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
-<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
-  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
-<span class="p">}</span>
-
-<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-
-<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip?id=1&amp;ip=192.168.100.38"</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success: true
-}
-</span></code></pre></div>
-<p>Using this endpoint, you can set the ip of a server.</p>
-<h3 id='api-endpoint-29'>API endpoint</h3>
-<p><code>/plesk/ip</code></p>
-<h3 id='query-parameters-26'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>-</td>
-<td><strong>Required</strong> ID of server from <code>/plesk/list</code> endpoint</td>
-</tr>
-<tr>
-<td>ip</td>
-<td>-</td>
-<td><strong>Required</strong> Must be a valid IP address</td>
-</tr>
-</tbody></table>
-<h3 id='return-codes-27'>Return codes</h3>
-<p>This are the additional return codes for this action. The global return codes applies.</p>
-
-<table><thead>
-<tr>
-<th>Return Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>100</td>
-<td>IP address updated successfully</td>
-</tr>
-<tr>
-<td>803</td>
-<td>No account specified</td>
-</tr>
-<tr>
-<td>804</td>
-<td>Invalid account specified.</td>
-</tr>
-<tr>
-<td>808</td>
-<td>Invalid IP address format</td>
-</tr>
-</tbody></table>
-<h2 id='order-a-server-2'>Order a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"license"</span> <span class="o">=&gt;</span> <span class="s2">"admin_vps"</span><span class="p">,</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span><span class="p">,</span>
   <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
 <span class="p">];</span>
 
@@ -2771,7 +2700,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?id=1"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&amp;ip=8.8.8.8"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2784,14 +2713,14 @@ In order to revoke an existing contract cancellation, please submit the date <co
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the server.</p>
+<p>Using this endpoint, you can order a new license. Your account will be billed with the price for the license.</p>
 
 <aside class="notice">
-You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch license details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The license is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
-<h3 id='api-endpoint-30'>API endpoint</h3>
+<h3 id='api-endpoint-29'>API endpoint</h3>
 <p><code>/plesk/order</code></p>
-<h3 id='query-parameters-27'>Query Parameters</h3>
+<h3 id='query-parameters-26'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2800,27 +2729,22 @@ You can fetch server details after successfully ordering using <code>id</code> a
 </tr>
 </thead><tbody>
 <tr>
-<td>id</td>
-<td>-</td>
-<td><strong>Required</strong> ID of server from <code>/plesk/list</code> endpoint</td>
-</tr>
-<tr>
-<td>note</td>
-<td>-</td>
-<td>A description to identify the new contract</td>
-</tr>
-<tr>
 <td>license</td>
 <td>-</td>
-<td>License key of product</td>
+<td><strong>Required</strong> Name of license from <code>/plesk/list</code> endpoint</td>
 </tr>
 <tr>
 <td>ip</td>
 <td>-</td>
 <td><strong>Required</strong> Must be a valid IP address</td>
 </tr>
+<tr>
+<td>note</td>
+<td>-</td>
+<td>A description to identify the new license</td>
+</tr>
 </tbody></table>
-<h3 id='return-codes-28'>Return codes</h3>
+<h3 id='return-codes-27'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2831,11 +2755,11 @@ You can fetch server details after successfully ordering using <code>id</code> a
 </thead><tbody>
 <tr>
 <td>803</td>
-<td>No server ID specified</td>
+<td>No license name specified</td>
 </tr>
 <tr>
 <td>804</td>
-<td>Invalid server ID specified</td>
+<td>Invalid license name specified</td>
 </tr>
 <tr>
 <td>805</td>
@@ -2846,7 +2770,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <td>Invalid IP address</td>
 </tr>
 </tbody></table>
-<h2 id='get-server-details-3'>Get server details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='get-license-details'>Get license details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
 <span class="p">];</span>
@@ -2873,7 +2797,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
   </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Account query successful."</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"epycXYZ"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Plesk ADMIN Edition VPS"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="nl">"order_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-01 00:00:00"</span><span class="p">,</span><span class="w">
@@ -2890,10 +2814,10 @@ You can fetch server details after successfully ordering using <code>id</code> a
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can get details for one of your servers.</p>
-<h3 id='api-endpoint-31'>API endpoint</h3>
+<p>Using this endpoint, you can get details for one of your licenses.</p>
+<h3 id='api-endpoint-30'>API endpoint</h3>
 <p><code>/plesk/info</code></p>
-<h3 id='query-parameters-28'>Query Parameters</h3>
+<h3 id='query-parameters-27'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2907,7 +2831,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <td><strong>Required</strong> The ID of the contract (Originally returned by <code>/plesk/order</code> endpoint)</td>
 </tr>
 </tbody></table>
-<h3 id='return-codes-29'>Return codes</h3>
+<h3 id='return-codes-28'>Return codes</h3>
 <p>These are the additional return codes for this action. The global return codes applies.</p>
 
 <table><thead>
@@ -2923,6 +2847,82 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <tr>
 <td>804</td>
 <td>Invalid contract ID specified</td>
+</tr>
+</tbody></table>
+<h2 id='change-license-ip'>Change license IP</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span>
+<span class="p">];</span>
+
+<span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip"</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="no">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nb">http_build_query</span><span class="p">(</span><span class="nv">$req</span><span class="p">));</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">curl_errno</span><span class="p">(</span><span class="nv">$ch</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">die</span><span class="p">(</span><span class="nb">curl_error</span><span class="p">(</span><span class="nv">$ch</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+<span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip?id=1&amp;ip=8.8.8.8"</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success: true
+}
+</span></code></pre></div>
+<p>Using this endpoint, you can change the allowed IP of a license.</p>
+<h3 id='api-endpoint-31'>API endpoint</h3>
+<p><code>/plesk/ip</code></p>
+<h3 id='query-parameters-28'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>-</td>
+<td><strong>Required</strong> ID of license from <code>/plesk/list</code> endpoint</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>-</td>
+<td><strong>Required</strong> Must be a valid IP address</td>
+</tr>
+</tbody></table>
+<h3 id='return-codes-29'>Return codes</h3>
+<p>This are the additional return codes for this action. The global return codes applies.</p>
+
+<table><thead>
+<tr>
+<th>Return Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>100</td>
+<td>IP address updated successfully</td>
+</tr>
+<tr>
+<td>803</td>
+<td>No license specified</td>
+</tr>
+<tr>
+<td>804</td>
+<td>Invalid license specified</td>
+</tr>
+<tr>
+<td>808</td>
+<td>Invalid IP address format</td>
 </tr>
 </tbody></table>
 <h2 id='set-note-description-3'>Set note/description</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
@@ -2995,7 +2995,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <td>Invalid contact ID specified</td>
 </tr>
 </tbody></table>
-<h2 id='cancel-a-server-3'>Cancel a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h2 id='cancel-a-license'>Cancel a license</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
   <span class="s2">"date"</span> <span class="o">=&gt;</span> <span class="s2">"2019-02-12"</span><span class="p">,</span>
@@ -3030,7 +3030,7 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <p>Using this endpoint, you can set the cancellation date for a contract. Please make sure that you retrieve the possible dates first by calling the Endpoint <code>/plesk/cancel</code> without the <code>date</code> parameter, as only valid dates are accepted.</p>
 
 <aside class="notice">
-Please note a revoke of an existing contract cancellation isnt possible.
+Please note revocation of an existing Plesk license cancellation isn't possible.
 </aside>
 <h3 id='api-endpoint-33'>API endpoint</h3>
 <p><code>/plesk/cancel</code></p>
@@ -3052,11 +3052,6 @@ Please note a revoke of an existing contract cancellation isnt possible.
 <td>-</td>
 <td><strong>Required</strong> Date of cancellation</td>
 </tr>
-<tr>
-<td>cancel</td>
-<td>-</td>
-<td>Can be used instead of date parameter.</td>
-</tr>
 </tbody></table>
 <h3 id='return-codes-31'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
@@ -3074,10 +3069,6 @@ Please note a revoke of an existing contract cancellation isnt possible.
 <tr>
 <td>804</td>
 <td>Invalid contract ID specified</td>
-</tr>
-<tr>
-<td>805</td>
-<td>No cancellation possible because of onetime</td>
 </tr>
 <tr>
 <td>806</td>
