@@ -1847,9 +1847,9 @@ Return Code | Meaning
 805 | No cancellation possible because of onetime
 806 | Provided cancellation date is invalid
 
-# Plesk Api
+# Plesk licenses
 
-## Get pricing
+## Get license types
 
 ```php
 <?php
@@ -1876,37 +1876,41 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/pricing"
 
 ```json
 {
-  "currency": "EUR",
-  "licenses": {
-    "admin_vps": {
-      "net": x.xx,
-      "gross": x.xx
-    },
-    "pro_vps": {
-      "net": x.xx,
-      "gross": x.xx
-    },
-    "host_vps": {
-      "net": x.xx,
-      "gross": x.xx
-    },
-    "admin_dedicated": {
-      "net": x.xx,
-      "gross": x.xx
-    },
-    "pro_dedicated": {
-      "net": x.xx,
-      "gross": x.xx
-    },
-    "host_dedicated": {
-      "net": x.xx,
-      "gross": x.xx
+  "code": "100",
+  "message": "Pricing fetched.",
+  "data": {
+    "currency": "EUR",
+    "licenses": {
+      "admin_vps": {
+        "net": 8.90,
+        "gross": 10.59
+      },
+      "pro_vps": {
+        "net": 14.90,
+        "gross": 17.71
+      },
+      "host_vps": {
+        "net": 29.90,
+        "gross": 35.58
+      },
+      "admin_dedicated": {
+        "net": 8.90,
+        "gross": 10.59
+      },
+      "pro_dedicated": {
+        "net": 14.90,
+        "gross": 17.73
+      },
+      "host_dedicated": {
+        "net": 37.90,
+        "gross": 45.10
+      }
     }
   }
 }
 ```
 
-Using this endpoint, returns all avaiable licenses with their pricing.
+This endpoint returns all avaiable licenses with their respective price.
 
 ### API endpoint
 
@@ -1924,72 +1928,13 @@ Return Code | Meaning
 ---------- | -------
 100 | Pricing fetched
 
-## Set IP
+## Order a license
 
 ```php
 <?php
 $req = [
-  "id" => 1,
-  "ip" => "192.168.100.38"
-];
-
-$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
-$res = curl_exec($ch);
-
-if (curl_errno($ch)) {
-  die(curl_error($ch));
-}
-
-curl_close($ch);
-$res = json_decode($res, true);
-
-print_r($res);
-```
-
-```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip?id=1&ip=192.168.100.38"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "success: true
-}
-```
-
-Using this endpoint, you can set the ip of a server.
-
-### API endpoint
-
-`/plesk/ip`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-id | - | **Required** ID of server from `/plesk/list` endpoint
-ip | - |  **Required** Must be a valid IP address
-
-### Return codes
-
-This are the additional return codes for this action. The global return codes applies.
-
-Return Code | Meaning
----------- | -------
-100 | IP address updated successfully
-803 | No account specified
-804 | Invalid account specified.
-808 | Invalid IP address format
-
-## Order a server
-
-```php
-<?php
-$req = [
-  "id" => 1,
+  "license" => "admin_vps",
+  "ip" => "8.8.8.8",
   "note" => "Optional"
 ];
 
@@ -2009,7 +1954,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?id=1"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8"
 ```
 
 > The above command returns JSON structured like this:
@@ -2024,10 +1969,10 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?id=1"
 }
 ```
 
-Using this endpoint, you can order a new server. Your account will be billed with the price for the server.
+Using this endpoint, you can order a new license. Your account will be billed with the price for the license.
 
 <aside class="notice">
-You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
+You can fetch license details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The license is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
 </aside>
 
 ### API endpoint
@@ -2038,11 +1983,9 @@ You can fetch server details after successfully ordering using <code>id</code> a
 
 Parameter | Default | Description
 --------- | ------- | -----------
-id | - | **Required** ID of server from `/plesk/list` endpoint
-note | - |  A description to identify the new contract
-license | - |  License key of product
+license | - | **Required** Name of license from `/plesk/list` endpoint
 ip | - |  **Required** Must be a valid IP address
-
+note | - | A description to identify the new license
 
 ### Return codes
 
@@ -2050,12 +1993,12 @@ This are the additional return codes for this action. The global return codes ap
 
 Return Code | Meaning
 ---------- | -------
-803 | No server ID specified
-804 | Invalid server ID specified
+803 | No license name specified
+804 | Invalid license name specified
 805 | Not enough credit
 805 | Invalid IP address
 
-## Get server details
+## Get license details
 
 ```php
 <?php
@@ -2089,7 +2032,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/info?id=123"
   "code": "100",
   "message": "Account query successful.",
   "data": {
-    "name": "epycXYZ",
+    "name": "Plesk ADMIN Edition VPS",
     "status": true,
     "description": "",
     "order_date": "2022-06-01 00:00:00",
@@ -2107,7 +2050,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/info?id=123"
 }
 ```
 
-Using this endpoint, you can get details for one of your servers.
+Using this endpoint, you can get details for one of your licenses.
 
 ### API endpoint
 
@@ -2127,6 +2070,66 @@ Return Code | Meaning
 ---------- | -------
 803 | No contract ID specified
 804 | Invalid contract ID specified
+
+## Change license IP
+
+```php
+<?php
+$req = [
+  "id" => 1,
+  "ip" => "8.8.8.8"
+];
+
+$ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($req));
+$res = curl_exec($ch);
+
+if (curl_errno($ch)) {
+  die(curl_error($ch));
+}
+
+curl_close($ch);
+$res = json_decode($res, true);
+
+print_r($res);
+```
+
+```shell
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/ip?id=1&ip=8.8.8.8"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "success: true
+}
+```
+
+Using this endpoint, you can change the allowed IP of a license.
+
+### API endpoint
+
+`/plesk/ip`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+id | - | **Required** ID of license from `/plesk/list` endpoint
+ip | - |  **Required** Must be a valid IP address
+
+### Return codes
+
+This are the additional return codes for this action. The global return codes applies.
+
+Return Code | Meaning
+---------- | -------
+100 | IP address updated successfully
+803 | No license specified
+804 | Invalid license specified
+808 | Invalid IP address format
 
 ## Set note/description
 
@@ -2188,7 +2191,7 @@ Return Code | Meaning
 803 | No contract ID specified
 804 | Invalid contact ID specified
 
-## Cancel a server
+## Cancel a license
 
 ```php
 <?php
@@ -2231,7 +2234,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/cancel?id=1&date=20
 Using this endpoint, you can set the cancellation date for a contract. Please make sure that you retrieve the possible dates first by calling the Endpoint `/plesk/cancel` without the `date` parameter, as only valid dates are accepted.
 
 <aside class="notice">
-Please note a revoke of an existing contract cancellation isnt possible.
+Please note revocation of an existing Plesk license cancellation isn't possible.
 </aside>
 
 ### API endpoint
@@ -2244,7 +2247,6 @@ Parameter | Default | Description
 --------- | ------- | -----------
 id | - | **Required** The ID of the contract
 date | - | **Required** Date of cancellation
-cancel | - | Can be used instead of date parameter.
 
 ### Return codes
 
@@ -2254,7 +2256,6 @@ Return Code | Meaning
 ---------- | -------
 803 | No contract ID specified
 804 | Invalid contract ID specified
-805 | No cancellation possible because of onetime
 806 | Provided cancellation date is invalid
 807 | Reverting cancellation is not possible
 
