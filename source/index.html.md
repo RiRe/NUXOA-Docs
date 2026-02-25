@@ -1883,34 +1883,466 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/pricing"
     "licenses": {
       "admin_vps": {
         "net": 8.90,
-        "gross": 10.59
+        "gross": 10.59,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 5.9,
+            "gross": 7.02
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       },
       "pro_vps": {
         "net": 14.90,
-        "gross": 17.71
+        "gross": 17.71,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 6.9,
+            "gross": 8.21
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       },
       "host_vps": {
         "net": 29.90,
-        "gross": 35.58
+        "gross": 35.58,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 13.9,
+            "gross": 16.54
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       },
       "admin_dedicated": {
         "net": 8.90,
-        "gross": 10.59
+        "gross": 10.59,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 5.9,
+            "gross": 7.02
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       },
       "pro_dedicated": {
-        "net": 14.90,
-        "gross": 17.73
+        "net": 14.9,
+        "gross": 17.73,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 6.9,
+            "gross": 8.21
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       },
       "host_dedicated": {
         "net": 37.90,
-        "gross": 45.10
+        "gross": 45.10,
+        "languages": {
+          "1": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "2": {
+            "net": 11.8,
+            "gross": 14.04
+          },
+          "3": {
+            "net": 17.7,
+            "gross": 21.06
+          },
+          "4": {
+            "net": 23.6,
+            "gross": 28.08
+          },
+          "all": {
+            "net": 26.9,
+            "gross": 32.01
+          }
+        },
+        "imunify": {
+          "av": {
+            "net": 5.9,
+            "gross": 7.02
+          },
+          "360-1": {
+            "net": 8.9,
+            "gross": 10.59
+          },
+          "360-30": {
+            "net": 16.9,
+            "gross": 20.11
+          },
+          "360-250": {
+            "net": 19.9,
+            "gross": 23.68
+          },
+          "360-unl": {
+            "net": 31.9,
+            "gross": 37.96
+          }
+        },
+        "wp": {
+          "toolkit": {
+            "net": 4.9,
+            "gross": 5.83
+          },
+          "deluxe": {
+            "net": 13.9,
+            "gross": 16.54
+          }
+        },
+        "wpb": {
+          "10": {
+            "net": 1.9,
+            "gross": 2.26
+          },
+          "30": {
+            "net": 3.9,
+            "gross": 4.64
+          },
+          "100": {
+            "net": 9.9,
+            "gross": 11.78
+          },
+          "1000": {
+            "net": 17.9,
+            "gross": 21.3
+          }
+        }
       }
     }
   }
 }
 ```
 
-This endpoint returns all avaiable licenses with their respective price.
+This endpoint returns all avaiable licenses and addons with their respective price.
 
 ### API endpoint
 
@@ -1935,6 +2367,10 @@ Return Code | Meaning
 $req = [
   "license" => "admin_vps",
   "ip" => "8.8.8.8",
+  "languages" => "all",
+  "imunify" => "360-unl",
+  "wp" => "deluxe",
+  "wpb" => "1000",
   "note" => "Optional"
 ];
 
@@ -1954,7 +2390,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8&languages=all&imunify=360-unl&wp=deluxe&wpb=1000"
 ```
 
 > The above command returns JSON structured like this:
@@ -1969,7 +2405,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin
 }
 ```
 
-Using this endpoint, you can order a new license. Your account will be billed with the price for the license.
+Using this endpoint, you can order a new license. Your account will be billed with the price for the license and any selected add-ons.
 
 <aside class="notice">
 You can fetch license details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The license is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -1985,7 +2421,11 @@ Parameter | Default | Description
 --------- | ------- | -----------
 license | - | **Required** Name of license from `/plesk/list` endpoint
 ip | - |  **Required** Must be a valid IP address
-note | - | A description to identify the new license
+languages | - |  Optional: `1`, `2`, `3`, `4` or `all`
+imunify | - |  Optional: `av`, `360-1`, `360-30`, `360-250`, `360-unl`
+wp | - |  Optional: `toolkit` or `deluxe`
+wpb | - |  Optional: `10`, `30`, `100` or `1000`
+note | - | Optional: A description to identify the new license
 
 ### Return codes
 
@@ -1996,7 +2436,7 @@ Return Code | Meaning
 803 | No license name specified
 804 | Invalid license name specified
 805 | Not enough credit
-805 | Invalid IP address
+806 | Invalid IP address
 
 ## Get license details
 
