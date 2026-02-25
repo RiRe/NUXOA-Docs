@@ -2366,12 +2366,7 @@ Return Code | Meaning
 <?php
 $req = [
   "license" => "admin_vps",
-  "ip" => "8.8.8.8",
-  "languages" => "all",
-  "imunify" => "360-unl",
-  "wp" => "deluxe",
-  "wpb" => "1000",
-  "note" => "Optional"
+  "ip" => "8.8.8.8"
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order");
@@ -2390,7 +2385,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8&languages=all&imunify=360-unl&wp=deluxe&wpb=1000"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8"
 ```
 
 > The above command returns JSON structured like this:
@@ -2422,7 +2417,7 @@ Parameter | Default | Description
 license | - | **Required** Name of license from `/plesk/list` endpoint
 ip | - |  **Required** Must be a valid IP address
 languages | - |  Optional: `1`, `2`, `3`, `4` or `all`
-imunify | - |  Optional: `av`, `360-1`, `360-30`, `360-250`, `360-unl`
+imunify | - |  Optional: `av`, `360-1`, `360-30`, `360-250` or `360-unl`
 wp | - |  Optional: `toolkit` or `deluxe`
 wpb | - |  Optional: `10`, `30`, `100` or `1000`
 note | - | Optional: A description to identify the new license
