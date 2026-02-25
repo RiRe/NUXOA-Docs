@@ -3115,12 +3115,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <h2 id='order-a-license'>Order a license</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"license"</span> <span class="o">=&gt;</span> <span class="s2">"admin_vps"</span><span class="p">,</span>
-  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span><span class="p">,</span>
-  <span class="s2">"languages"</span> <span class="o">=&gt;</span> <span class="s2">"all"</span><span class="p">,</span>
-  <span class="s2">"imunify"</span> <span class="o">=&gt;</span> <span class="s2">"360-unl"</span><span class="p">,</span>
-  <span class="s2">"wp"</span> <span class="o">=&gt;</span> <span class="s2">"deluxe"</span><span class="p">,</span>
-  <span class="s2">"wpb"</span> <span class="o">=&gt;</span> <span class="s2">"1000"</span><span class="p">,</span>
-  <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order"</span><span class="p">);</span>
@@ -3136,7 +3131,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&amp;ip=8.8.8.8&amp;languages=all&amp;imunify=360-unl&amp;wp=deluxe&amp;wpb=1000"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&amp;ip=8.8.8.8"</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3182,7 +3177,7 @@ You can fetch license details after successfully ordering using <code>id</code> 
 <tr>
 <td>imunify</td>
 <td>-</td>
-<td>Optional: <code>av</code>, <code>360-1</code>, <code>360-30</code>, <code>360-250</code>, <code>360-unl</code></td>
+<td>Optional: <code>av</code>, <code>360-1</code>, <code>360-30</code>, <code>360-250</code> or <code>360-unl</code></td>
 </tr>
 <tr>
 <td>wp</td>
