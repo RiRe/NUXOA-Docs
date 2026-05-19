@@ -135,6 +135,7 @@ $req = [
   "additional_ips" => 0,
   "os" => "Debian 11",
   "hostname" => "",
+  "voucher" => "optional"
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order");
@@ -153,7 +154,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&additional_ips=0&os=Debian%2011&hostname="
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8&storage=50&snapshots=0&additional_ips=0&os=Debian%2011&hostname=&voucher="
 ```
 
 > The above command returns JSON structured like this:
@@ -166,6 +167,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&ram=8
 ```
 
 Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.
 
 <aside class="notice">
 You can fetch server details using <code>ID</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -186,6 +188,7 @@ snapshots | - | **Required** Snapshots (0-10)
 additional_ips | - | **Required** Additional IP addresses (0-3)
 os | - | **Required** Operating system (Debian 12, Debian 11, Ubuntu 22.10, Ubuntu 22.04, Windows Server 2022, Windows Server 2019)
 hostname | - | Must be a FQDN, if specified
+voucher | - | Voucher for discount
 
 ### Return codes
 
@@ -196,6 +199,7 @@ Return Code | Meaning
 803 | Internal error
 804 | Invalid configuration (see message)
 805 | Not enough credit/limit
+806 | Voucher invalid or expired
 
 ## Get server details
 
@@ -1585,7 +1589,8 @@ Using this endpoint, you can get the list of all our available dedicated servers
 <?php
 $req = [
   "id" => 1,
-  "note" => "Optional"
+  "note" => "Optional",
+  "voucher" => "Optional"
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order");
@@ -1604,7 +1609,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1&note=&voucher="
 ```
 
 > The above command returns JSON structured like this:
@@ -1620,6 +1625,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1"
 ```
 
 Using this endpoint, you can order a new server. Your account will be billed with the price for the server.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.
 
 <aside class="notice">
 You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -1635,6 +1641,7 @@ Parameter | Default | Description
 --------- | ------- | -----------
 id | - | **Required** ID of server from `/dedicated/list` endpoint
 note | - |  A description to identify the new contract
+voucher | - |  Voucher for discount
 
 ### Return codes
 
@@ -1645,6 +1652,7 @@ Return Code | Meaning
 803 | No server ID specified
 804 | Invalid server ID specified
 805 | Not enough credit
+806 | Voucher invalid or expired
 
 ## Get server details
 
@@ -1938,7 +1946,8 @@ Return Code | Meaning
 <?php
 $req = [
   "license" => "admin_vps",
-  "ip" => "8.8.8.8"
+  "ip" => "8.8.8.8",
+  "voucher" => "optional"
 ];
 
 $ch = curl_init("https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order");
@@ -1957,7 +1966,7 @@ print_r($res);
 ```
 
 ```shell
-curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8"
+curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&ip=8.8.8.8&voucher="
 ```
 
 > The above command returns JSON structured like this:
@@ -1973,6 +1982,7 @@ curl "https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin
 ```
 
 Using this endpoint, you can order a new license. Your account will be billed with the price for the license and any selected add-ons.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.
 
 <aside class="notice">
 You can fetch license details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The license is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -1993,6 +2003,7 @@ imunify | - |  Optional: `av`, `360-1`, `360-30`, `360-250` or `360-unl`
 wp | - |  Optional: `toolkit` or `deluxe`
 wpb | - |  Optional: `10`, `30`, `100` or `1000`
 note | - | Optional: A description to identify the new license
+voucher | - | Optional: Voucher for discount
 
 ### Return codes
 
@@ -2003,7 +2014,7 @@ Return Code | Meaning
 803 | No license name specified
 804 | Invalid license name specified
 805 | Not enough credit
-806 | Invalid IP address
+806 | Invalid IP address OR Voucher invalid or expired
 
 ## Get license details
 
