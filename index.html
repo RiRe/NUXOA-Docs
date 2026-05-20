@@ -604,6 +604,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
   <span class="s2">"additional_ips"</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
   <span class="s2">"os"</span> <span class="o">=&gt;</span> <span class="s2">"Debian 11"</span><span class="p">,</span>
   <span class="s2">"hostname"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"voucher"</span> <span class="o">=&gt;</span> <span class="s2">"optional"</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order"</span><span class="p">);</span>
@@ -619,7 +620,7 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;additional_ips=0&amp;os=Debian%2011&amp;hostname="</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/cloud/order?cores=4&amp;ram=8&amp;storage=50&amp;snapshots=0&amp;additional_ips=0&amp;os=Debian%2011&amp;hostname=&amp;voucher="</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -629,7 +630,8 @@ Hereby, <code>CUSTOMER_ID</code> is your customer ID, <code>API_KEY</code> is yo
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">12.38</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.</p>
+<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the configuration.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.</p>
 
 <aside class="notice">
 You can fetch server details using <code>ID</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -679,6 +681,11 @@ You can fetch server details using <code>ID</code> and the <code>info</code> end
 <td>-</td>
 <td>Must be a FQDN, if specified</td>
 </tr>
+<tr>
+<td>voucher</td>
+<td>-</td>
+<td>Voucher for discount</td>
+</tr>
 </tbody></table>
 <h3 id='return-codes'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
@@ -700,6 +707,10 @@ You can fetch server details using <code>ID</code> and the <code>info</code> end
 <tr>
 <td>805</td>
 <td>Not enough credit/limit</td>
+</tr>
+<tr>
+<td>806</td>
+<td>Voucher invalid or expired</td>
 </tr>
 </tbody></table>
 <h2 id='get-server-details'>Get server details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
@@ -2298,7 +2309,8 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <h2 id='order-a-server'>Order a server</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
+  <span class="s2">"note"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span><span class="p">,</span>
+  <span class="s2">"voucher"</span> <span class="o">=&gt;</span> <span class="s2">"Optional"</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order"</span><span class="p">);</span>
@@ -2314,7 +2326,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/dedicated/order?id=1&amp;note=&amp;voucher="</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2327,7 +2339,8 @@ In order to revoke an existing contract cancellation, please submit the date <co
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the server.</p>
+<p>Using this endpoint, you can order a new server. Your account will be billed with the price for the server.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.</p>
 
 <aside class="notice">
 You can fetch server details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The server is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -2352,6 +2365,11 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <td>-</td>
 <td>A description to identify the new contract</td>
 </tr>
+<tr>
+<td>voucher</td>
+<td>-</td>
+<td>Voucher for discount</td>
+</tr>
 </tbody></table>
 <h3 id='return-codes-22'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
@@ -2373,6 +2391,10 @@ You can fetch server details after successfully ordering using <code>id</code> a
 <tr>
 <td>805</td>
 <td>Not enough credit</td>
+</tr>
+<tr>
+<td>806</td>
+<td>Voucher invalid or expired</td>
 </tr>
 </tbody></table>
 <h2 id='get-server-details-2'>Get server details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
@@ -2687,7 +2709,8 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <h2 id='order-a-license'>Order a license</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="nv">$req</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">"license"</span> <span class="o">=&gt;</span> <span class="s2">"admin_vps"</span><span class="p">,</span>
-  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span>
+  <span class="s2">"ip"</span> <span class="o">=&gt;</span> <span class="s2">"8.8.8.8"</span><span class="p">,</span>
+  <span class="s2">"voucher"</span> <span class="o">=&gt;</span> <span class="s2">"optional"</span>
 <span class="p">];</span>
 
 <span class="nv">$ch</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">(</span><span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order"</span><span class="p">);</span>
@@ -2703,7 +2726,7 @@ In order to revoke an existing contract cancellation, please submit the date <co
 <span class="nv">$res</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$res</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$res</span><span class="p">);</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&amp;ip=8.8.8.8"</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manager.nuxoa.de/api/CUSTOMER_ID/API_KEY/plesk/order?license=admin_vps&amp;ip=8.8.8.8&amp;voucher="</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -2716,7 +2739,8 @@ In order to revoke an existing contract cancellation, please submit the date <co
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Using this endpoint, you can order a new license. Your account will be billed with the price for the license and any selected add-ons.</p>
+<p>Using this endpoint, you can order a new license. Your account will be billed with the price for the license and any selected add-ons.
+If a valid voucher code is provided, the discount will be applied automatically to the calculated final price.</p>
 
 <aside class="notice">
 You can fetch license details after successfully ordering using <code>id</code> and the <code>info</code> endpoint. The license is provisioned in the background. As long as the <code>info</code> endpoint shows <code>status = false</code>, provisioning is still ongoing and not all details may be available yet. Provisioning should take no more than 3 minutes.
@@ -2766,6 +2790,11 @@ You can fetch license details after successfully ordering using <code>id</code> 
 <td>-</td>
 <td>Optional: A description to identify the new license</td>
 </tr>
+<tr>
+<td>voucher</td>
+<td>-</td>
+<td>Optional: Voucher for discount</td>
+</tr>
 </tbody></table>
 <h3 id='return-codes-27'>Return codes</h3>
 <p>This are the additional return codes for this action. The global return codes applies.</p>
@@ -2790,7 +2819,7 @@ You can fetch license details after successfully ordering using <code>id</code> 
 </tr>
 <tr>
 <td>806</td>
-<td>Invalid IP address</td>
+<td>Invalid IP address OR Voucher invalid or expired</td>
 </tr>
 </tbody></table>
 <h2 id='get-license-details'>Get license details</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
